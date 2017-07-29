@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.demo.panda_channel.MainActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/iconImg"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/panda_sign"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/personImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/person_sign"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/titleTv"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/hudongImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/hudong_sign"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/personImg"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container"
+        android:layout_weight="1"></FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/homeBottomGroup"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/home_Page"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/tab_home"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/home" />
+        <RadioButton
+            android:id="@+id/home_panda_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/tab_panda_eye"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/panda_report"/>
+        <RadioButton
+            android:id="@+id/home_panda_culture"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/tab_panda_culture"
+            android:gravity="center"
+            android:text="@string/panda_video"
+            android:textSize="12sp" />
+        <RadioButton
+            android:id="@+id/home_panda_live"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/pandas_live"
+            android:gravity="center"
+            android:text="@string/panda_live"
+
+            android:textSize="12sp"/>
+
+        <RadioButton
+            android:id="@+id/home_Live_China"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/tab_live_china"
+            android:gravity="center"
+            android:text="@string/live_china"
+            android:textSize="12sp" />
+    </RadioGroup>
+
+</LinearLayout>

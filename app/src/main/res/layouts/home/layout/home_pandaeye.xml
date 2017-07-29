@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#E6EBEF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tab_report"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:textSize="16dp"
+            android:text="熊猫观察"
+            android:textColor="@color/home_taptext_color"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <TextView
+            android:background="#E6EBEF"
+            android:textSize="0.1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+            <ImageView
+                android:id="@+id/panda_eye_img"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:weightSum="5"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        android:background="@drawable/home_text_shape"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="三伏"
+                        android:textColor="@color/home_textshape_color"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/panda_eye_onetx" />
+                    <TextView
+                        android:id="@+id/panda_eye_onecontent"
+                        android:textSize="13dp"
+                        android:textColor="#000"
+                        android:padding="12dp"
+                        android:layout_weight="4"
+                        android:text="特质“的萨达”"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#646262"/>
+                <LinearLayout
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <TextView
+                        android:id="@+id/panda_eye_twotx"
+                        android:background="@drawable/home_text_shape"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="三伏"
+                        android:textColor="@color/home_textshape_color"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                    <TextView
+                        android:id="@+id/panda_eye_twocontent"
+                        android:textSize="13dp"
+                        android:textColor="#000"
+                        android:padding="12dp"
+                        android:layout_weight="4"
+                        android:text="特质“的萨达”"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:background="#E6EBEF"
+            android:textSize="0.1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/home_panda_eye_videorecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</LinearLayout>

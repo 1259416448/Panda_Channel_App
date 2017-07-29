@@ -63,7 +63,8 @@ public class HomeAdapter extends RecyclerView.Adapter{
                View pandaLive=LayoutInflater.from(context).inflate(R.layout.home_pandalive,null);
                return new PandaLiveHolder(pandaLive);
            case WALLLIVE:
-               break;
+               View wallLive=LayoutInflater.from(context).inflate(R.layout.home_pandalive,null);
+               return new PandaLiveHolder(wallLive);
            case CHINALIVE:
                break;
            case INTERACTIVE:
@@ -120,12 +121,15 @@ public class HomeAdapter extends RecyclerView.Adapter{
 
     class PandaLiveHolder extends RecyclerView.ViewHolder{
 
+        private TextView hometitle;
         private RecyclerView pandaliverecycler;
         public PandaLiveHolder(View itemView) {
             super(itemView);
+            hometitle= (TextView) itemView.findViewById(R.id.home_title);
             pandaliverecycler= (RecyclerView) itemView.findViewById(R.id.pandalive_recycler);
         }
     }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (position){
@@ -148,6 +152,12 @@ public class HomeAdapter extends RecyclerView.Adapter{
                 PandaLiveHolder holder4= (PandaLiveHolder) holder;
                 HomeData.DataBean.PandaliveBean pandaliveBean= (HomeData.DataBean.PandaliveBean) list.get(position);
                 loadPandaLive(holder4,pandaliveBean);
+                break;
+            case WALLLIVE:
+                PandaLiveHolder holder5= (PandaLiveHolder) holder;
+                HomeData.DataBean.WallliveBean wallliveBean= (HomeData.DataBean.WallliveBean) list.get(position);
+                loadWallLive(holder5,wallliveBean);
+                break;
         }
     }
 
@@ -215,7 +225,16 @@ public class HomeAdapter extends RecyclerView.Adapter{
         GridLayoutManager manager=new GridLayoutManager(context,3);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(new HomePandaLiveAdapter(list,context));
+    }
 
+    private void loadWallLive(PandaLiveHolder holder,HomeData.DataBean.WallliveBean wallliveBean){
+        List<HomeData.DataBean.WallliveBean.ListBeanX> list = wallliveBean.getList();
+        RecyclerView pandaliverecycler = holder.pandaliverecycler;
+        TextView hometitle = holder.hometitle;
+        hometitle.setText("长城直播");
+        GridLayoutManager manager=new GridLayoutManager(context,3);
+        pandaliverecycler.setLayoutManager(manager);
+        pandaliverecycler.setAdapter(new HomeWallLiveAdapter(list,context));
     }
     @Override
     public int getItemCount() {

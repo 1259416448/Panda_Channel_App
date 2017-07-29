@@ -81,6 +81,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         list.add(homeData.getData().getArea());
         list.add(homeData.getData().getPandaeye());
         list.add(homeData.getData().getPandalive());
+        list.add(homeData.getData().getWalllive());
         adapter.notifyDataSetChanged();
         xRecyclerView.refreshComplete();
     }

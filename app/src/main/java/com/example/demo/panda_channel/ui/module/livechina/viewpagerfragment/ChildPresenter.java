@@ -1,18 +1,18 @@
-package com.example.demo.panda_channel.ui.module.livechina;
+package com.example.demo.panda_channel.ui.module.livechina.viewpagerfragment;
 
 import com.example.demo.panda_channel.model.biz.livechinabiz.LiveChinaModel;
 import com.example.demo.panda_channel.model.biz.livechinabiz.LiveChinaModellmpl;
-import com.example.demo.panda_channel.model.entity.ChildFragmentAllBean;
+import com.example.demo.panda_channel.model.entity.LiveChinaBean;
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 
 /**
- * Created by 闫雨婷 on 2017/7/28.
+ * Created by ASUS on 2017/7/29.
  */
 
-public class LiveChinaPresenter implements LiveChinaContract.Presenter{
-    private LiveChinaContract.View view;
+public class ChildPresenter implements ChildContract.Presenter {
+    private ChildContract.View view;
     private LiveChinaModel chinaModel;
-    public LiveChinaPresenter(LiveChinaContract.View view) {
+    public ChildPresenter(ChildContract.View view) {
         this.view = view;
         this.view.setPresenter(this);
         chinaModel=new LiveChinaModellmpl();
@@ -20,10 +20,15 @@ public class LiveChinaPresenter implements LiveChinaContract.Presenter{
 
     @Override
     public void start() {
-        chinaModel.getChildFragmentAllBean(new MyNetWorkCallBack<ChildFragmentAllBean>() {
+
+    }
+
+    @Override
+    public void UrlLiveChinaBean(String url) {
+        chinaModel.getLiveChinaBean(url, new MyNetWorkCallBack<LiveChinaBean>() {
             @Override
-            public void onSuccess(ChildFragmentAllBean childFragmentAllBean) {
-                view.ShowChildFragmentAllBean(childFragmentAllBean);
+            public void onSuccess(LiveChinaBean liveChinaBean) {
+                view.ShowLiveChinaBean(liveChinaBean);
             }
 
             @Override

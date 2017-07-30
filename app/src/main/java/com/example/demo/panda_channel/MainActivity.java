@@ -10,9 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demo.panda_channel.base.BaseActivity;
+import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.ui.module.home.HomeFragment;
 import com.example.demo.panda_channel.ui.module.home.HomePresenter;
+import com.example.demo.panda_channel.ui.module.livechina.LiveChinaContract;
 import com.example.demo.panda_channel.ui.module.livechina.LiveChinaFragment;
+import com.example.demo.panda_channel.ui.module.livechina.LiveChinaPresenter;
 import com.example.demo.panda_channel.ui.module.pandaculture.PandaCultureFragment;
 import com.example.demo.panda_channel.ui.module.pandaeye.PandaEyeFragment;
 import com.example.demo.panda_channel.ui.module.pandalive.PandaLiveFragment;
@@ -94,7 +97,8 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.home_Live_China:
                 showTitle("直播中国", 0);
-                changeFragment(LiveChinaFragment.class, R.id.container, true, null, false);
+                BaseFragment baseFragment = changeFragment(LiveChinaFragment.class, R.id.container, true, null, false);
+                new LiveChinaPresenter((LiveChinaContract.View) baseFragment);
                 homeLiveChina.setBackgroundColor(getResources().getColor(R.color.tab_backgroud_color));
                 break;
         }

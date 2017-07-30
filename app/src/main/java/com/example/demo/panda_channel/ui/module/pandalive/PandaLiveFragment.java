@@ -17,7 +17,7 @@ public class PandaLiveFragment extends BaseFragment implements PandaLiveContract
     @BindView(R.id.pandalive_tablayout)
     TabLayout pandaliveTablayout;
     @BindView(R.id.pandalive_viewpager)
-    CustomViewPager pandaliveViewpager;//
+    CustomViewPager pandaliveViewpager;///
     @Override
     protected int getLayoutId() {
         return R.layout.pandalive_fragment;

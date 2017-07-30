@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.model.entity.HomePandaEyeBean;
+import com.example.demo.panda_channel.net.HttpFactroy;
 
 import java.util.List;
 
@@ -53,12 +54,10 @@ public class HomePandaEyeAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Holder holder1= (Holder) holder;
-//        HttpFactroy.create().loadImage(datas.get(position).getImage(),holder1.imageView);
-//        PandaChannelModelImpl.iHttp.loadImage(datas.get(position).getImage(),holder1.imageView);
+        HttpFactroy.create().loadImage(datas.get(position).getImage(),holder1.imageView);
         holder1.textView.setText(datas.get(position).getVideoLength());
         holder1.textView2.setText(datas.get(position).getTitle());
         holder1.textView3.setText(datas.get(position).getDaytime());
-
 
     }
 

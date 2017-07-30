@@ -17,7 +17,7 @@
             android:id="@+id/tab_report"
             android:paddingLeft="5dp"
             android:gravity="center_vertical"
-            android:textSize="16dp"
+            android:textSize="15dp"
             android:text="熊猫观察"
             android:textColor="@color/home_taptext_color"
             android:layout_width="match_parent"

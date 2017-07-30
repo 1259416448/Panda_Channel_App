@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Created by 闫雨婷 on 2017/7/28.
  */
-
+//
 public class HomeAdapter extends RecyclerView.Adapter{
 
     private ArrayList<Object> list;

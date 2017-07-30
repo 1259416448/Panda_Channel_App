@@ -12,4 +12,6 @@ import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 public interface PandaChannelModel extends BaseModel{
     void getHomeData(MyNetWorkCallBack<HomeData> callback);
     void getHomePandaEye(MyNetWorkCallBack<HomePandaEyeBean> callBack);
+    void getPandaEyeData(MyNetWorkCallBack<PandaEyesDataBean> callBack);
+    void getPandaEyeChildData(String url,MyNetWorkCallBack<PandaEyesChildDataBean> callBack);
 }

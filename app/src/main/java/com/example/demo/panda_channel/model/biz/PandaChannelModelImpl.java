@@ -19,4 +19,13 @@ public class PandaChannelModelImpl implements PandaChannelModel{
     public void getHomePandaEye(MyNetWorkCallBack<HomePandaEyeBean> callBack) {
         iHttp.get(Urls.HOMEVIDEOURL,null,callBack);
     }
+    @Override
+    public void getPandaEyeData(MyNetWorkCallBack<PandaEyesDataBean> callBack) {
+        iHttp.get(Urls.PANDAREPORTTWO,null,callBack);
+    }
+
+    @Override
+    public void getPandaEyeChildData(String url, MyNetWorkCallBack<PandaEyesChildDataBean> callBack) {
+        iHttp.get(url,null,callBack);
+    }
 }

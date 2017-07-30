@@ -1,7 +1,6 @@
 package com.example.demo.panda_channel.ui.module.home.adapter;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +12,16 @@ import android.widget.TextView;
 
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.model.biz.PandaChannelModel;
-import com.example.demo.panda_channel.model.biz.PandaChannelModelImpl;
+import com.example.demo.panda_channel.model.entity.CCTVBean;
 import com.example.demo.panda_channel.model.entity.HomeData;
 import com.example.demo.panda_channel.model.entity.HomePandaEyeBean;
+import com.example.demo.panda_channel.model.entity.LightChinaBean;
 import com.example.demo.panda_channel.net.HttpFactroy;
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
+import com.example.demo.panda_channel.ui.module.home.MyLoader;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,9 @@ public class HomeAdapter extends RecyclerView.Adapter{
 
     private ArrayList<Object> list;
     private ArrayList<HomePandaEyeBean.ListBean> lists=new ArrayList<>();
+    private ArrayList<CCTVBean.ListBean> listBeen=new ArrayList<>();
+    private ArrayList<LightChinaBean.ListBean> lightChina=new ArrayList<>();
+
     private Context context;
     public static final int ITEMCOUNT = 9;//9种不同类型的item
     public static final int BIGIMG = 0;//轮播图
@@ -66,13 +73,17 @@ public class HomeAdapter extends RecyclerView.Adapter{
                View wallLive=LayoutInflater.from(context).inflate(R.layout.home_pandalive,null);
                return new PandaLiveHolder(wallLive);
            case CHINALIVE:
-               break;
+               View chinaLive=LayoutInflater.from(context).inflate(R.layout.home_pandalive,null);
+               return new PandaLiveHolder(chinaLive);
            case INTERACTIVE:
-               break;
+               View interActive=LayoutInflater.from(context).inflate(R.layout.home_interactive,null);
+               return new InterActiveHolder(interActive);
            case CCTV:
-               break;
+               View cctv=LayoutInflater.from(context).inflate(R.layout.home_cctv,null);
+               return new CctvHolder(cctv);
            case LIST:
-               break;
+               View list=LayoutInflater.from(context).inflate(R.layout.home_lightchina,null);
+               return new ListHolder(list);
        }
 
         return null;
@@ -80,10 +91,10 @@ public class HomeAdapter extends RecyclerView.Adapter{
 
     class BigImgHolder extends RecyclerView.ViewHolder{
 
-        private ViewPager bigimgviewpager;
+        private Banner bigimgviewpager;
         public BigImgHolder(View itemView) {
             super(itemView);
-            bigimgviewpager= (ViewPager) itemView.findViewById(R.id.bigimg_viewpager);
+            bigimgviewpager= (Banner) itemView.findViewById(R.id.bigimg_viewpager);
         }
     }
 
@@ -130,6 +141,37 @@ public class HomeAdapter extends RecyclerView.Adapter{
         }
     }
 
+    class InterActiveHolder extends RecyclerView.ViewHolder{
+
+        private TextView home_interactive_title;
+        private ImageView home_interactive_img;
+        public InterActiveHolder(View itemView) {
+            super(itemView);
+            home_interactive_img=(ImageView) itemView.findViewById(R.id.home_interactive_img);
+            home_interactive_title=(TextView) itemView.findViewById(R.id.home_interactive_title);
+        }
+    }
+
+    class CctvHolder extends RecyclerView.ViewHolder{
+
+        private RecyclerView recyclerview;
+
+        public CctvHolder(View itemView) {
+            super(itemView);
+            recyclerview= (RecyclerView) itemView.findViewById(R.id.home_cctv_recyclerview);
+        }
+    }
+
+    class ListHolder extends RecyclerView.ViewHolder{
+
+        private RecyclerView recyclerView;
+        private TextView textView;
+        public ListHolder(View itemView) {
+            super(itemView);
+            recyclerView= (RecyclerView) itemView.findViewById(R.id.home_lightchina_recyclerview);
+            textView= (TextView) itemView.findViewById(R.id.home_lightchina_name);
+        }
+    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (position){
@@ -158,23 +200,55 @@ public class HomeAdapter extends RecyclerView.Adapter{
                 HomeData.DataBean.WallliveBean wallliveBean= (HomeData.DataBean.WallliveBean) list.get(position);
                 loadWallLive(holder5,wallliveBean);
                 break;
+            case CHINALIVE:
+                PandaLiveHolder holder6= (PandaLiveHolder) holder;
+                HomeData.DataBean.ChinaliveBean chinaliveBean= (HomeData.DataBean.ChinaliveBean) list.get(position);
+                loadChinaLive(holder6,chinaliveBean);
+                break;
+            case INTERACTIVE:
+                InterActiveHolder holder7= (InterActiveHolder) holder;
+                HomeData.DataBean.InteractiveBean interactiveBean= (HomeData.DataBean.InteractiveBean) list.get(position);
+                loadInterActive(holder7,interactiveBean);
+                break;
+            case CCTV:
+                CctvHolder holder8= (CctvHolder) holder;
+                HomeData.DataBean.CctvBean cctvBean= (HomeData.DataBean.CctvBean) list.get(position);
+                loadCctv(holder8,cctvBean);
+                break;
+            case LIST:
+                ListHolder holder9= (ListHolder) holder;
+                HomeData.DataBean.ListBeanXXX listBeanXXX= (HomeData.DataBean.ListBeanXXX) list.get(position);
+                loadLightChina(holder9,listBeanXXX);
+                break;
         }
     }
 
     private void loadBigImg(BigImgHolder holder, List<HomeData.DataBean.BigImgBean> bigImgs){
-        ViewPager viewPager = holder.bigimgviewpager;
-        List<ImageView> imgs = new ArrayList<>();
+        Banner bigimgviewpager = holder.bigimgviewpager;
+        List<String> imgs = new ArrayList<>();
+        List<String> title=new ArrayList<>();
         for (HomeData.DataBean.BigImgBean imgBean : bigImgs){
-            ImageView imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            ViewGroup.LayoutParams params =
-                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT);
-            imageView.setLayoutParams(params);
-            HttpFactroy.create().loadImage(imgBean.getImage(),imageView);
-            imgs.add(imageView);
+            imgs.add(imgBean.getImage());
+            title.add(imgBean.getTitle());
+
+            bigimgviewpager.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+            //设置图片加载器
+            bigimgviewpager.setImageLoader(new MyLoader());
+            //设置图片集合
+            bigimgviewpager.setImages(imgs);
+            //设置banner动画效果
+            bigimgviewpager.setBannerAnimation(Transformer.DepthPage);
+            //设置标题集合（当banner样式有显示title时）
+            bigimgviewpager.setBannerTitles(title);
+            //设置自动轮播，默认为true
+            bigimgviewpager.isAutoPlay(true);
+            //设置轮播时间
+            bigimgviewpager.setDelayTime(1500);
+            //设置指示器位置（当banner模式中有指示器时）
+            bigimgviewpager.setIndicatorGravity(BannerConfig.CENTER);
+            //banner设置方法全部调用完毕时最后调用
+            bigimgviewpager.start();
         }
-        viewPager.setAdapter(new HomeBigImgAdapter(imgs));
     }
 
     private void loadArea(AreaHolder holder,HomeData.DataBean.AreaBean areaBean){
@@ -190,6 +264,7 @@ public class HomeAdapter extends RecyclerView.Adapter{
 
     private void loadPandaEye(PandaEyeHolder holder,HomeData.DataBean.PandaeyeBean pandaeyeBean){
         List<HomeData.DataBean.PandaeyeBean.ItemsBean> items = pandaeyeBean.getItems();
+        String pandaeyelist = pandaeyeBean.getPandaeyelist();
         ImageView pandaeyeimg = holder.pandaeyeimg;
         HttpFactroy.create().loadImage(pandaeyeBean.getPandaeyelogo(),pandaeyeimg);
         holder.onetx.setText(items.get(0).getBrief());
@@ -202,13 +277,12 @@ public class HomeAdapter extends RecyclerView.Adapter{
         videorecycler.setLayoutManager(manager);
         final HomePandaEyeAdapter adapter=new HomePandaEyeAdapter(context,lists);
         videorecycler.setAdapter(adapter);
-        PandaChannelModel model=new PandaChannelModelImpl();
-        model.getHomePandaEye(new MyNetWorkCallBack<HomePandaEyeBean>() {
+        PandaChannelModel.iHttp.get(pandaeyelist, null, new MyNetWorkCallBack<HomePandaEyeBean>() {
             @Override
             public void onSuccess(HomePandaEyeBean homePandaEyeBean) {
-                List<HomePandaEyeBean.ListBean> listBeen = homePandaEyeBean.getList();
+                List<HomePandaEyeBean.ListBean> list = homePandaEyeBean.getList();
                 lists.clear();
-                lists.addAll(listBeen);
+                lists.addAll(list);
                 adapter.notifyDataSetChanged();
             }
 
@@ -236,6 +310,76 @@ public class HomeAdapter extends RecyclerView.Adapter{
         pandaliverecycler.setLayoutManager(manager);
         pandaliverecycler.setAdapter(new HomeWallLiveAdapter(list,context));
     }
+
+    private void loadChinaLive(PandaLiveHolder holder,HomeData.DataBean.ChinaliveBean chinaliveBean){
+        List<HomeData.DataBean.ChinaliveBean.ListBeanXX> list = chinaliveBean.getList();
+        TextView hometitle = holder.hometitle;
+        RecyclerView pandaliverecycler = holder.pandaliverecycler;
+        hometitle.setText("直播中国");
+        GridLayoutManager manager=new GridLayoutManager(context,3);
+        pandaliverecycler.setLayoutManager(manager);
+        pandaliverecycler.setAdapter(new HomeLiveChinaAdapter(list,context));
+
+    }
+
+    private void loadInterActive(InterActiveHolder holder,HomeData.DataBean.InteractiveBean interactiveBean){
+        List<HomeData.DataBean.InteractiveBean.InteractiveoneBean> interactiveone = interactiveBean.getInteractiveone();
+        TextView home_interactive_title = holder.home_interactive_title;
+        ImageView home_interactive_img = holder.home_interactive_img;
+        HttpFactroy.create().loadImage(interactiveone.get(0).getImage(),home_interactive_img);
+        home_interactive_title.setText(interactiveone.get(0).getTitle());
+    }
+
+    private void loadCctv(CctvHolder holder,HomeData.DataBean.CctvBean cctvBean){
+        RecyclerView recyclerview = holder.recyclerview;
+        String listurl = cctvBean.getListurl();
+        GridLayoutManager manager=new GridLayoutManager(context,2);
+        recyclerview.setLayoutManager(manager);
+        final HomeCCTVAdapter adapter=new HomeCCTVAdapter(context,listBeen);
+        recyclerview.setAdapter(adapter);
+        PandaChannelModel.iHttp.get(listurl, null, new MyNetWorkCallBack<CCTVBean>() {
+            @Override
+            public void onSuccess(CCTVBean cctvBean) {
+                List<CCTVBean.ListBean> list = cctvBean.getList();
+                listBeen.clear();
+                listBeen.addAll(list);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+
+            }
+        });
+    }
+
+    private void loadLightChina(ListHolder holder,HomeData.DataBean.ListBeanXXX listBeanXXX){
+        String listUrl = listBeanXXX.getListUrl();
+        TextView textView = holder.textView;
+        RecyclerView recyclerView = holder.recyclerView;
+        textView.setText(listBeanXXX.getTitle());
+        LinearLayoutManager manager=new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+        final HomeListAdapter adapter=new HomeListAdapter(context,lightChina);
+        recyclerView.setAdapter(adapter);
+        PandaChannelModel.iHttp.get(listUrl, null, new MyNetWorkCallBack<LightChinaBean>() {
+            @Override
+            public void onSuccess(LightChinaBean lightChinaBean) {
+                List<LightChinaBean.ListBean> list = lightChinaBean.getList();
+                lightChina.clear();
+                lightChina.addAll(list);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+
+            }
+        });
+
+    }
+
     @Override
     public int getItemCount() {
         return list.size();

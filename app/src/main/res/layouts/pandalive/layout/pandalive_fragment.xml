@@ -2,5 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <android.support.design.widget.TabLayout
+        android:id="@+id/pandalive_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.design.widget.TabLayout>
+    <com.example.demo.panda_channel.widget.view.CustomViewPager
+        android:id="@+id/pandalive_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.example.demo.panda_channel.widget.view.CustomViewPager>
 </LinearLayout>

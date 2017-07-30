@@ -1,62 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#fff"
-        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="160dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center">
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/panda_eye_img"
+            android:scaleType="fitXY"
+            android:layout_width="140dp"
+            android:layout_height="100dp" />
+
+        <LinearLayout
+            android:background="@drawable/jian_bian"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/panda_eye_image"
-                android:layout_width="160dp"
-                android:layout_height="90dp"
-                android:layout_centerVertical="true" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:background="@mipmap/play"
+                android:layout_width="15dp"
+                android:layout_height="10dp" />
 
             <TextView
                 android:id="@+id/panda_eye_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="时长"
-                android:layout_marginLeft="20dp"
-                android:textColor="#fff"/>
-        </RelativeLayout>
+                android:gravity="center"
+                android:textColor="#fff"
+                android:layout_width="60dp"
+                android:layout_height="20dp" />
+        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/panda_eye_img">
+
+            <TextView
+                android:layout_alignParentBottom="true"
+                android:id="@+id/panda_eye_date"
+                android:layout_width="wrap_content"
+                android:text="eee"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/panda_eye_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="英国抬床赛"
-                android:textColor="#000"
-                android:textSize="15dp"/>
+                android:layout_marginLeft="10dp"
+                android:maxLines="2"
+                android:text="英国一年一度抬床比赛  比赛过程欢乐多"
+                android:textSize="13dp" />
 
-            <TextView
-                android:id="@+id/panda_eye_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="2017" />
-        </LinearLayout>
-    </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <TextView
-        android:background="#E6EBEF"
-        android:textSize="0.1dp"
+        android:layout_marginTop="10dp"
+        android:background="#dcdcdc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="1dp" />
 </LinearLayout>

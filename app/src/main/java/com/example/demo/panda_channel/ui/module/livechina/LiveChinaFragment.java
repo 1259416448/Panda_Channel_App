@@ -233,11 +233,11 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
                         gildViewAdapter.notifyDataSetChanged();
                         unGildViewAdapter.notifyDataSetChanged();
                         arr.remove(arr.get(i));
-                   /* if(trim.equals("完成")) {
+                   if(trim.equals("完成")) {
 
                         fragments.remove(arr.get(i));
                         pagerAdapter.notifyDataSetChanged();
-                    }*/
+                    }
                 }
 
             }

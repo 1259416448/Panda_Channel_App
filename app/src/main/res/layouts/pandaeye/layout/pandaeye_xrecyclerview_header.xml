@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/pandaeye_xrecyclerview_header_img"
+        android:src="@mipmap/ic_launcher"/>
+    <TextView
+        android:paddingLeft="10dp"
+        android:layout_marginTop="-22dp"
+        android:gravity="center"
+        android:layout_below="@id/pandaeye_xrecyclerview_header_img"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textColor="#fff"
+        android:text="三伏天大熊猫怎么过？“水果冰来帮忙”"
+        android:id="@+id/pandaeye_xrecyclerview_header_title" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#9c9797"
+        android:layout_below="@+id/pandaeye_xrecyclerview_header_img"
+        />
+</RelativeLayout>

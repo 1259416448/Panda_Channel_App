@@ -1,6 +1,7 @@
 package com.example.demo.panda_channel.model.biz;
 
 import com.example.demo.panda_channel.model.entity.HomeData;
+import com.example.demo.panda_channel.model.entity.HomePandaEyeBean;
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 
 /**
@@ -10,4 +11,7 @@ import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 //业务事件
 public interface PandaChannelModel extends BaseModel{
     void getHomeData(MyNetWorkCallBack<HomeData> callback);
+    void getHomePandaEye(MyNetWorkCallBack<HomePandaEyeBean> callBack);
+    void getPandaEyeData(MyNetWorkCallBack<PandaEyesDataBean> callBack);
+    void getPandaEyeChildData(String url,MyNetWorkCallBack<PandaEyesChildDataBean> callBack);
 }

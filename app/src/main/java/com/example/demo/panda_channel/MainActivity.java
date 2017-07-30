@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity {
                 BaseFragment baseFragment = changeFragment(LiveChinaFragment.class, R.id.container, true, null, false);
                 new LiveChinaPresenter((LiveChinaContract.View) baseFragment);
                 homeLiveChina.setBackgroundColor(getResources().getColor(R.color.tab_backgroud_color));
+
                 break;
         }
     }

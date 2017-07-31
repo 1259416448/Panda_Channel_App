@@ -8,10 +8,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.demo.panda_channel.R;
+import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.model.entity.PandaEyesChildDataBean;
 import com.example.demo.panda_channel.model.entity.PandaEyesDataBean;
 import com.example.demo.panda_channel.ui.module.pandaeye.adapter.PandaEyeXrecyclerAdapter;
+import com.example.demo.panda_channel.utils.ACache;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -88,19 +90,24 @@ public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.V
     }
     @Override
     public void PandaEyesEorror(String msg) {
-
+        ACache aCache = ACache.get(App.context);
+        PandaEyesDataBean bean = (PandaEyesDataBean) aCache.getAsObject("PandaEyesDataBean");
+        Glide.with(getActivity()).load(bean.getData().getBigImg().get(0).getImage()).into(img);
+        title.setText(bean.getData().getBigImg().get(0).getTitle());
+        presenter.PandaEyeChildUrl(bean.getData().getListurl());
     }
 
     @Override
     public void PandaEyesChildDataBeanSuccess(PandaEyesChildDataBean bean) {
         pandachilddatalist.addAll(bean.getList());
         adapter.notifyDataSetChanged();
-
-
     }
 
     @Override
     public void PandaEyesChildEorror(String msg) {
-
+        ACache aCache = ACache.get(App.context);
+        PandaEyesChildDataBean bean = (PandaEyesChildDataBean) aCache.getAsObject("PandaEyesChildDataBean");
+        pandachilddatalist.addAll(bean.getList());
+        adapter.notifyDataSetChanged();
     }
 }

@@ -48,7 +48,7 @@ public class PandaEyesDataBean  implements Serializable {
             this.bigImg = bigImg;
         }
 
-        public static class BigImgBean {
+        public static class BigImgBean implements Serializable{
             /**
              * image : http://p1.img.cctvpic.com/photoAlbum/page/performance/img/2017/6/13/1497337653079_517.jpg
              * title : 旅日大熊猫“仙女”成功产下2017首胎海外熊猫幼仔

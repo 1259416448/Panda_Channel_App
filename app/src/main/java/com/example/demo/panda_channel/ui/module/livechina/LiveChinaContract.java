@@ -13,6 +13,7 @@ public interface LiveChinaContract {
         void ShowChildFragmentAllBean(ChildFragmentAllBean childFragmentAllBean);
         void setError(String msg);
         void bombWindow();
+
     }
 
     interface Presenter extends BasePresenter {

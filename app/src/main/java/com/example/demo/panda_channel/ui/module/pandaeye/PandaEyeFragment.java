@@ -101,7 +101,6 @@ public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.V
     public void PandaEyesChildDataBeanSuccess(PandaEyesChildDataBean bean) {
         pandachilddatalist.addAll(bean.getList());
         adapter.notifyDataSetChanged();
-
     }
 
     @Override

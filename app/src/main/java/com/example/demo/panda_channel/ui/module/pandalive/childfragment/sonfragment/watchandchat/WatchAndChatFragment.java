@@ -112,7 +112,7 @@ public class WatchAndChatFragment extends BaseFragment implements WatchAndChatFr
 
             @Override
             public void onLoadMore() {
-                watchrecyclerview.loadMoreComplete();
+                
             }
         });
     }

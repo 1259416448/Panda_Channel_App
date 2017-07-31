@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.demo.panda_channel.R;
-import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.model.entity.MultiangleLiveDataBean;
 import com.example.demo.panda_channel.ui.module.pandalive.childfragment.sonfragment.multiangle.adapter.MultiangleRecyclerAdapter;
-import com.example.demo.panda_channel.utils.ACache;
 
 import butterknife.BindView;
 
@@ -68,10 +66,6 @@ public class MultiangleLiveFragment extends BaseFragment implements MultiangleLi
 
     @Override
     public void Error(String msg) {
-        ACache aCache = ACache.get(App.context);
-        MultiangleLiveDataBean bean = (MultiangleLiveDataBean) aCache.getAsObject("MultiangleLiveDataBean");
-        multianglefragmentRecycler.setLayoutManager(new GridLayoutManager(getActivity(),3));
-        adapter =new MultiangleRecyclerAdapter(bean.getList(),getActivity());
-        multianglefragmentRecycler.setAdapter(adapter);
+
     }
 }

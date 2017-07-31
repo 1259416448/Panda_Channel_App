@@ -4,12 +4,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.example.demo.panda_channel.R;
-import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.config.Urls;
 import com.example.demo.panda_channel.model.entity.PandaLiveMoudleDataBean;
 import com.example.demo.panda_channel.ui.module.pandalive.childfragment.modulefragment.adapter.ModuleXrecyclerAdapter;
-import com.example.demo.panda_channel.utils.ACache;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -88,10 +86,6 @@ public class ModuleFragment extends BaseFragment implements ModuleFragmentContra
 
     @Override
     public void Error(String msg) {
-        ACache aCache = ACache.get(App.context);
-        PandaLiveMoudleDataBean bean = (PandaLiveMoudleDataBean) aCache.getAsObject("PandaLiveMoudleDataBean");
-        list.clear();
-        list.addAll(bean.getVideo());
-        adapter.notifyDataSetChanged();
+
     }
 }

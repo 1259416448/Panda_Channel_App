@@ -1,6 +1,8 @@
 package com.example.demo.panda_channel.activity;
 
+import android.content.Intent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +27,9 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.activity_webview)
     WebView activityWebview;
 
+    private WebSettings settings;
+    private String stringurl;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_webview;
@@ -33,6 +38,23 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void init() {
 
+        settings = activityWebview.getSettings();
+        stringurl = getIntent().getStringExtra("url");
+
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        homeWebviewTitle.setText(title);
+
+
+        //      可以与什么交互
+        settings.setJavaScriptEnabled(true);
+//        将图片控制到适合webview的大小
+        settings.setUseWideViewPort(true);
+
+//        缩放至屏幕大小
+        settings.setLoadWithOverviewMode(true);
+        activityWebview.loadUrl(stringurl);
+
     }
 
     @OnClick({R.id.home_webview_back, R.id.home_webview_title, R.id.home_webview_share})
@@ -40,8 +62,6 @@ public class WebViewActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.home_webview_back:
                 finish();
-                break;
-            case R.id.home_webview_title:
                 break;
             case R.id.home_webview_share:
                 break;

@@ -84,7 +84,7 @@ public class LiveFragment extends BaseFragment implements LiveFragmentContract.V
         MultiangleLiveFragment multiangleLiveFragment =new MultiangleLiveFragment(bean.getBookmark().getMultiple().get(0).getUrl());
         WatchAndChatFragment watchAndChatFragment =new WatchAndChatFragment(bean.getBookmark().getWatchTalk().get(0).getUrl());
         list.clear();
-        list.add(multiangleLiveFragment);
+        list.add(multiangleLiveFragment);//
         list.add(watchAndChatFragment);
         LiveFragmentViewpagerAdapter adapter =new LiveFragmentViewpagerAdapter(getChildFragmentManager(),list);
         pandalivechilidPage.setAdapter(adapter);

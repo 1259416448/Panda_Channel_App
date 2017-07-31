@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.demo.panda_channel.R;
+import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.model.entity.PandaLiveChildLiveDataBean;
 import com.example.demo.panda_channel.ui.module.pandalive.childfragment.livefragment.adapter.LiveFragmentViewpagerAdapter;
 import com.example.demo.panda_channel.ui.module.pandalive.childfragment.sonfragment.multiangle.MultiangleLiveFragment;
 import com.example.demo.panda_channel.ui.module.pandalive.childfragment.sonfragment.watchandchat.WatchAndChatFragment;
+import com.example.demo.panda_channel.utils.ACache;
 import com.example.demo.panda_channel.widget.view.CustomViewPager;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class LiveFragment extends BaseFragment implements LiveFragmentContract.V
     @Override
     protected int getLayoutId() {
         new LiveFragmentPresenter(this);
+
         return R.layout.pandachildlivefragment;
     }
 
@@ -72,6 +75,26 @@ public class LiveFragment extends BaseFragment implements LiveFragmentContract.V
 
     @Override
     public void ChildLiveFragmentSuccess(PandaLiveChildLiveDataBean bean) {
+
+        Glide.with(getActivity()).load(bean.getLive().get(0).getImage()).into(pandaliveVido);
+        pandalivechilidTitle.setText("[正在直播] " + bean.getLive().get(0).getTitle());
+        pandalivechilidContent.setText(bean.getLive().get(0).getBrief());
+        pandalivechilidPage.setScanScroll(false);
+        pandalivechilidPage.setOffscreenPageLimit(2);
+        MultiangleLiveFragment multiangleLiveFragment =new MultiangleLiveFragment(bean.getBookmark().getMultiple().get(0).getUrl());
+        WatchAndChatFragment watchAndChatFragment =new WatchAndChatFragment(bean.getBookmark().getWatchTalk().get(0).getUrl());
+        list.clear();
+        list.add(multiangleLiveFragment);
+        list.add(watchAndChatFragment);
+        LiveFragmentViewpagerAdapter adapter =new LiveFragmentViewpagerAdapter(getChildFragmentManager(),list);
+        pandalivechilidPage.setAdapter(adapter);
+        pandalivechilidTablelayout.setupWithViewPager(pandalivechilidPage);
+    }
+
+    @Override
+    public void Error(String msg) {
+        ACache aCache = ACache.get(App.context);
+        PandaLiveChildLiveDataBean bean = (PandaLiveChildLiveDataBean) aCache.getAsObject("PandaLiveChildLiveDataBean");
         Glide.with(getActivity()).load(bean.getLive().get(0).getImage()).into(pandaliveVido);
         pandalivechilidTitle.setText("[正在直播] " + bean.getLive().get(0).getTitle());
         pandalivechilidContent.setText(bean.getLive().get(0).getBrief());
@@ -84,11 +107,6 @@ public class LiveFragment extends BaseFragment implements LiveFragmentContract.V
         LiveFragmentViewpagerAdapter adapter =new LiveFragmentViewpagerAdapter(getFragmentManager(),list);
         pandalivechilidPage.setAdapter(adapter);
         pandalivechilidTablelayout.setupWithViewPager(pandalivechilidPage);
-    }
-
-    @Override
-    public void Error(String msg) {
-
     }
 
     @Override

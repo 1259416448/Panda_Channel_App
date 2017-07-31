@@ -27,7 +27,7 @@ import butterknife.BindView;
 public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.View {
     private ImageView img;
     private TextView title;
-    private PandaEyeContract.Presenter presenter;//
+    private PandaEyeContract.Presenter presenter;
     @BindView(R.id.panda_eye_xrecycler)
     XRecyclerView pandaEyeXrecycler;
     private PandaEyeXrecyclerAdapter adapter;

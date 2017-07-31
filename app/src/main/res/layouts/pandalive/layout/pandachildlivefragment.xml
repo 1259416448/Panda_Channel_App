@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/pandalive_vido"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/pandalivechilid_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="[正在直播]大熊猫别墅镜头二1"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:text="简介"
+                android:textSize="13sp" />
+
+            <CheckBox
+                android:id="@+id/pandalivechilid_button"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="150dp"
+                android:background="@drawable/pandalive_tabselect"
+                android:button="@null" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#9c9797"></View>
+
+        <TextView
+            android:id="@+id/pandalivechilid_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="sadsad"
+            android:textColor="#000"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/live_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#9c9797"
+            android:visibility="invisible"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/pandalivechilid_tablelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"></android.support.design.widget.TabLayout>
+
+                <com.example.demo.panda_channel.widget.view.CustomViewPager
+                    android:id="@+id/pandalivechilid_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"></com.example.demo.panda_channel.widget.view.CustomViewPager>
+            </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+

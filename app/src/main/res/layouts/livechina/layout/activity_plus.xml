@@ -54,7 +54,7 @@
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
-    <com.example.administrator.panda_channel_app.MVP_Framework.module.live_china.view.MyGridView
+    <com.example.demo.panda_channel.widget.view.MyGridView
         android:paddingLeft="20dp"
         android:gravity="center"
         android:verticalSpacing="20dp"
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
-    </com.example.administrator.panda_channel_app.MVP_Framework.module.live_china.view.MyGridView>
+    </com.example.demo.panda_channel.widget.view.MyGridView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
         android:layout_marginLeft="10dp"
         android:textColor="#fff"
         android:textSize="18dp"/>
-    <com.example.administrator.panda_channel_app.MVP_Framework.module.live_china.view.MyUnSelectGridView
+    <com.example.demo.panda_channel.widget.view.MyUnSelectGridView
         android:paddingLeft="20dp"
         android:gravity="center"
         android:verticalSpacing="20dp"
@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
-    </com.example.administrator.panda_channel_app.MVP_Framework.module.live_china.view.MyUnSelectGridView>
+    </com.example.demo.panda_channel.widget.view.MyUnSelectGridView>
     </LinearLayout>
     </ScrollView>
 </LinearLayout>

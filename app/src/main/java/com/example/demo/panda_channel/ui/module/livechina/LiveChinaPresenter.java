@@ -20,10 +20,13 @@ public class LiveChinaPresenter implements LiveChinaContract.Presenter{
 
     @Override
     public void start() {
+        view.bombWindow();
+
         chinaModel.getChildFragmentAllBean(new MyNetWorkCallBack<ChildFragmentAllBean>() {
             @Override
             public void onSuccess(ChildFragmentAllBean childFragmentAllBean) {
                 view.ShowChildFragmentAllBean(childFragmentAllBean);
+
             }
 
             @Override

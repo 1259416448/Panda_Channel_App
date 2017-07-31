@@ -30,7 +30,7 @@ public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.V
     private PandaEyeContract.Presenter presenter;
     @BindView(R.id.panda_eye_xrecycler)
     XRecyclerView pandaEyeXrecycler;
-    private PandaEyeXrecyclerAdapter adapter;//
+    private PandaEyeXrecyclerAdapter adapter;//、。
     @Override
     protected int getLayoutId() {
         new PandaEyePresenter(this);

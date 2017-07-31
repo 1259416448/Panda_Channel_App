@@ -10,4 +10,5 @@ import com.example.demo.panda_channel.base.BaseActivity;
 
 public class App extends Application {
     public static BaseActivity context=null;
+
 }

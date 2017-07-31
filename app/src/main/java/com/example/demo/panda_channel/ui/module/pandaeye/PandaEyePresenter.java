@@ -28,7 +28,7 @@ public class PandaEyePresenter implements PandaEyeContract.Presenter{
 
             @Override
             public void onError(String errorMsg) {
-
+                pandaeyeview.PandaEyesEorror(errorMsg);
             }
         });
     }
@@ -44,6 +44,7 @@ public class PandaEyePresenter implements PandaEyeContract.Presenter{
             @Override
             public void onError(String errorMsg) {
 
+                pandaeyeview.PandaEyesChildEorror(errorMsg);
             }
         });
     }

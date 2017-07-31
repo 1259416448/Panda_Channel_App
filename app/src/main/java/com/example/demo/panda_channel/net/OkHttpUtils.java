@@ -1,5 +1,7 @@
 package com.example.demo.panda_channel.net;
 
+import android.app.ProgressDialog;
+import android.os.Environment;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -8,10 +10,16 @@ import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 import com.example.demo.panda_channel.utils.ACache;
 import com.google.gson.Gson;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
@@ -176,19 +184,51 @@ public class OkHttpUtils implements IHttp {
         });
     }
 
+//    上传图片
     @Override
     public void upload() {
 
     }
 
-    @Override
-    public void download() {
+    //更新
+    int total = 0;
+    public File download(String uri, final ProgressDialog pd) throws Exception {
+        //如果相等的话表示当前的sdcard挂载在手机上并且是可用的
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            URL url = new URL(uri);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            //获取到文件的大小
+            pd.setMax(conn.getContentLength());
+            InputStream is = conn.getInputStream();
+            long time = System.currentTimeMillis();//当前时间的毫秒数
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), time + "updata.apk");
+            if (!file.exists())
+                file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedInputStream bis = new BufferedInputStream(is);
+            byte[] buffer = new byte[1024];
+            int len;
 
+            while ((len = bis.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
+                total += len;
+                //获取当前下载量
+                pd.setProgress(total);
+            }
+            fos.close();
+            bis.close();
+            is.close();
+            return file;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void loadImage(String url, ImageView imageView) {
         Glide.with(App.context).load(url).into(imageView);
+//        glide.load(url).into(imageView);
     }
 
     private <T> T getGeneric(String jsonData, MyNetWorkCallBack<T> callback) {

@@ -30,4 +30,38 @@ public class PandaChannelModelImpl implements PandaChannelModel{
     public void getPandaEyeChildData(String url, MyNetWorkCallBack<PandaEyesChildDataBean> callBack) {
         iHttp.get(url,null,callBack);
     }
+    @Override
+    public void getVersion(MyNetWorkCallBack<UpDateLoading> callBack) {
+        iHttp.get(Urls.UPDATE,null,callBack);
+    }
+
+    @Override
+    public void getOriginal(MyNetWorkCallBack<OriginalBean> callBack) {
+        iHttp.get(Urls.ORIGINAL,null,callBack);
+    }
+
+    @Override
+    public void getPandaLiveTablayout(MyNetWorkCallBack<PandaLiveTablyoutData> callBack) {
+        iHttp.get(Urls.PANDALIVETAB,null,callBack);
+    }
+
+    @Override
+    public void getPandaLiveModuleData(String url, MyNetWorkCallBack<PandaLiveMoudleDataBean> callBack) {
+        iHttp.get(url,null,callBack);
+    }
+
+    @Override
+    public void getPandaLiveMultiangLiveData(String url, MyNetWorkCallBack<MultiangleLiveDataBean> callBack) {
+        iHttp.get(url,null,callBack);
+    }
+
+    @Override
+    public void getPandaLiveWacthAndChatDataBean(String url, MyNetWorkCallBack<WacthAndChatDataBean> callBack) {
+        iHttp.get(url,null,callBack);
+    }
+
+    @Override
+    public void getPandaChildLiveData(MyNetWorkCallBack<PandaLiveChildLiveDataBean> callBack) {
+        iHttp.get(Urls.PANDALIVE,null,callBack);
+    }
 }

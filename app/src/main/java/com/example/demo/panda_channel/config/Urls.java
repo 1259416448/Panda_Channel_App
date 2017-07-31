@@ -42,5 +42,6 @@ public class Urls {
     public static final String PHONENUM = "http://reg.cntv.cn/regist/getVerifiCode.action";
     //点击注册
     public static final String PHONEREGISTER = "https://reg.cntv.cn/regist/mobileRegist.do";
-
+    //熊猫直播Tablayout
+    public static final String PANDALIVETAB="http://www.ipanda.com/kehuduan/PAGE14501772263221982/index.json";
 }

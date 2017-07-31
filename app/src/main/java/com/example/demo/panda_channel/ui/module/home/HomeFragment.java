@@ -4,10 +4,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.example.demo.panda_channel.R;
+import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.model.entity.HomeData;
 import com.example.demo.panda_channel.ui.module.home.adapter.HomeAdapter;
-import com.example.demo.panda_channel.widget.manager.ToastManager;
+import com.example.demo.panda_channel.utils.ACache;
 import com.example.demo.panda_channel.widget.view.CustomDialog;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -25,6 +26,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     XRecyclerView xRecyclerView;
     private HomeContract.Presenter presenter;
     private ArrayList<Object> list=new ArrayList<>();
+    private ArrayList<HomeData> homeDatas = new ArrayList<>();
     private HomeAdapter adapter;
 
     @Override
@@ -76,6 +78,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void setListData(HomeData homeData) {
+        ACache aCache=ACache.get(App.context);
+        HomeData homeData1 = (HomeData) aCache.getAsObject("HomeData");
+        homeDatas.add(homeData1);
         list.clear();
         list.add(homeData.getData().getBigImg());
         list.add(homeData.getData().getArea());
@@ -92,6 +97,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void showMessage(String msg) {
-        ToastManager.show(msg);
+
     }
 }

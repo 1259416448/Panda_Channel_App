@@ -16,4 +16,11 @@ public interface PandaChannelModel extends BaseModel{
     void getHomePandaEye(MyNetWorkCallBack<HomePandaEyeBean> callBack);
     void getPandaEyeData(MyNetWorkCallBack<PandaEyesDataBean> callBack);
     void getPandaEyeChildData(String url,MyNetWorkCallBack<PandaEyesChildDataBean> callBack);
+    void getVersion(MyNetWorkCallBack<UpDateLoading> callBack);
+    void getOriginal(MyNetWorkCallBack<OriginalBean> callBack);
+    void getPandaChildLiveData(MyNetWorkCallBack<PandaLiveChildLiveDataBean> callBack);
+    void getPandaLiveTablayout(MyNetWorkCallBack<PandaLiveTablyoutData> callBack);
+    void getPandaLiveModuleData(String url,MyNetWorkCallBack<PandaLiveMoudleDataBean> callBack);
+    void getPandaLiveMultiangLiveData(String url, MyNetWorkCallBack<MultiangleLiveDataBean> callBack);
+    void getPandaLiveWacthAndChatDataBean(String url, MyNetWorkCallBack<WacthAndChatDataBean> callBack);
 }

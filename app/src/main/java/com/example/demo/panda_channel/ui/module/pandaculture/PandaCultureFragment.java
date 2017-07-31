@@ -117,6 +117,7 @@ public class PandaCultureFragment extends BaseFragment implements PandaCultureCo
         banner.start();
 
     }
+    //
 
 
 }

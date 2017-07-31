@@ -21,7 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.context = this;
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         init();
@@ -71,5 +70,27 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         return lastFragment;
 
+    }
+
+//    public void onBackPressed(){
+//        String lastFragmentName = getLastFragmentName();
+//        if("HomeFragment".equals(lastFragmentName)||"LiveChinaFragment".equals(lastFragmentName)||"PandaCultureFragment".equals(lastFragmentName)||"PandaEyeFragment".equals(lastFragmentName)||"PandaLiveFragment".equals(lastFragmentName)){
+//
+//
+//        }
+//
+//    }
+//
+//    private String getLastFragmentName(){
+//        getFragmentManager().getBackStackEntryCount();
+//
+//        return null;
+//    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App.context = this;
     }
 }

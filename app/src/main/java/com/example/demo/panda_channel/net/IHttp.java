@@ -1,9 +1,11 @@
 package com.example.demo.panda_channel.net;
 
+import android.app.ProgressDialog;
 import android.widget.ImageView;
 
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -15,6 +17,6 @@ public interface IHttp {
     <T> void post(String url,Map<String,String> params,MyNetWorkCallBack<T> callback);
     <T> void get(String url, Map<String,String> params, Map<String,String> headers,MyNetWorkCallBack<T> callback);
     void upload();
-    void download();
+    File download(String uri, final ProgressDialog pd) throws Exception;
     void loadImage(String url, ImageView imageView);
 }

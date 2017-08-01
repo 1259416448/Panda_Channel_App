@@ -51,6 +51,7 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
     private ImageView plus_img_back;
     private UnGildViewAdapter unGildViewAdapter;
     private GildViewAdapter gildViewAdapter;
+    private PopupWindow popupWindow;
 
     @Override
     protected int getLayoutId() {
@@ -67,7 +68,7 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
         liveChinaViewpager.setScanScroll(false);
         liveChinaTab.setupWithViewPager(liveChinaViewpager);
         liveChinaTab.setTabMode(TabLayout.MODE_SCROLLABLE);
-
+        presenter.getData();
     }
 
     @Override
@@ -114,6 +115,9 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
     @Override
     public void bombWindow() {
         liveChinaPlus.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View view) {
                 View inflate = View.inflate(getContext(), R.layout.activity_plus, null);
@@ -125,10 +129,15 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
                 setUnselectGridvieAdapter();
                 popupwindBtBianji = (Button) inflate.findViewById(R.id.popupwind_bt_bianji);
                 setpopupwindBtBianji();
+
+                setGridViewClickListener();
+                setSelectGridviewClickListener();
                 plus_img_back = (ImageView) inflate.findViewById(R.id.plus_img_back);
-                PopupWindow popupWindow=new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,true);
+
+                popupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,true);
                 popupWindow.setBackgroundDrawable(new ColorDrawable());
                 popupWindow.showAsDropDown(inflate, 0, 0);
+                setPlus_img_back();
             }
         });
 
@@ -140,27 +149,7 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
             @Override
             public void onClick(View view) {
                 String trim = popupwindBtBianji.getText().toString().trim();
-                if(trim.equals("编辑")){
-                    selectGridview.setEnabled(true);
-                    setGridViewClickListener();
-                    popupwindBtBianji.setText("完成");
-
-                    for (int i = 0; i < arr.size(); i++) {
-                        arr.get(i).setFlag(true);
-                    }
-                    gildViewAdapter.notifyDataSetChanged();
-                    unGildViewAdapter.notifyDataSetChanged();
-                }else if(trim.equals("完成")){
-                    for (int i = 0; i < arr.size(); i++) {
-                        arr.get(i).setFlag(false);
-                    }
-                    setSelectGridviewClickListener();
-                    gildViewAdapter.notifyDataSetChanged();
-                    unGildViewAdapter.notifyDataSetChanged();
-                    pagerAdapter.notifyDataSetChanged();
-                    selectGridview.setEnabled(false);
-                   popupwindBtBianji.setText("编辑");
-                }
+                presenter.setBtBianjilogic(trim,popupwindBtBianji,selectGridview,unselectGridvie,arr,gildViewAdapter,unGildViewAdapter,pagerAdapter);
             }
         });
     }
@@ -168,11 +157,9 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
     public void setSelectGridviewAdapter(){
         gildViewAdapter = new GildViewAdapter(arr,getContext());
         selectGridview.setAdapter(gildViewAdapter);
-
     }
     public void setUnselectGridvieAdapter(){
         unGildViewAdapter = new UnGildViewAdapter(list,getContext());
-
         unselectGridvie.setAdapter(unGildViewAdapter);
 
     }
@@ -186,28 +173,7 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String trim = popupwindBtBianji.getText().toString().trim();
-
-
-                    ChildFragmentAllBean.TablistBean tablistBean=new ChildFragmentAllBean.TablistBean();
-                    tablistBean.setTitle(list.get(i).getTitle());
-                    tablistBean.setUrl(list.get(i).getUrl());
-                    tablistBean.setOrder(list.get(i).getOrder());
-                    tablistBean.setType(list.get(i).getType());
-                    arr.add(tablistBean);
-
-                if(trim.equals("完成")){
-                    ChildfragmentFragment childfragment = new ChildfragmentFragment(tablistBean.getUrl());
-                    new ChildPresenter(childfragment);
-                    fragments.add(childfragment);
-                    pagerAdapter.notifyDataSetChanged();
-                    gildViewAdapter.notifyDataSetChanged();
-                    unGildViewAdapter.notifyDataSetChanged();
-                    list.remove(list.get(i));
-                    }
-
-
-
-
+                presenter.setUnselectGridvie(trim,fragments,arr,gildViewAdapter,list,unGildViewAdapter,pagerAdapter,i);
             }
         });
     }
@@ -219,29 +185,29 @@ public class LiveChinaFragment extends BaseFragment implements LiveChinaContract
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String trim = popupwindBtBianji.getText().toString().trim();
+                presenter.setSelectGridview(trim,fragments,arr,gildViewAdapter,list,unGildViewAdapter,pagerAdapter,i);
+            }
+        });
+    }
+//..
 
-                if (arr.size() < 5) {
-                    Toast.makeText(getContext(), "栏目区，不能少于四个频道", Toast.LENGTH_SHORT).show();
+    public void setPlus_img_back(){
+        plus_img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < arr.size(); i++) {
+                    arr.get(i).setFlag(false);
+                }
+                String trim = popupwindBtBianji.getText().toString().trim();
+
+                if(trim.equals("编辑")){
+                    popupWindow.dismiss();
                 }else{
+                    Toast.makeText(getContext(), "请点击完成保存", Toast.LENGTH_SHORT).show();
 
-                        ChildFragmentAllBean.AlllistBean all = new ChildFragmentAllBean.AlllistBean();
-                        all.setTitle(arr.get(i).getTitle());
-                        all.setUrl(arr.get(i).getUrl());
-                        all.setOrder(arr.get(i).getOrder());
-                        all.setType(arr.get(i).getType());
-                        list.add(all);
-                        gildViewAdapter.notifyDataSetChanged();
-                        unGildViewAdapter.notifyDataSetChanged();
-                        arr.remove(arr.get(i));
-                   if(trim.equals("完成")) {
-
-                        fragments.remove(arr.get(i));
-                        pagerAdapter.notifyDataSetChanged();
-                    }
                 }
 
             }
         });
     }
-//..
 }

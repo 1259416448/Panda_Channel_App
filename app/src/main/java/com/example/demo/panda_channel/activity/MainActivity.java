@@ -28,7 +28,9 @@ import com.example.demo.panda_channel.ui.module.home.HomePresenter;
 import com.example.demo.panda_channel.ui.module.livechina.LiveChinaContract;
 import com.example.demo.panda_channel.ui.module.livechina.LiveChinaFragment;
 import com.example.demo.panda_channel.ui.module.livechina.LiveChinaPresenter;
+import com.example.demo.panda_channel.ui.module.pandaculture.PandaCultureContract;
 import com.example.demo.panda_channel.ui.module.pandaculture.PandaCultureFragment;
+import com.example.demo.panda_channel.ui.module.pandaculture.PandaCulturePresenter;
 import com.example.demo.panda_channel.ui.module.pandaeye.PandaEyeFragment;
 import com.example.demo.panda_channel.ui.module.pandalive.PandaLiveFragment;
 import com.example.demo.panda_channel.version.UpDateLoading;
@@ -111,7 +113,8 @@ public class MainActivity extends BaseActivity implements UpdateContract.View{
                 break;
             case R.id.home_panda_culture:
                 showTitle("熊猫文化", 0);
-                changeFragment(PandaCultureFragment.class, R.id.container, true, null, false);
+                BaseFragment baseFragment1 = changeFragment(PandaCultureFragment.class, R.id.container, true, null, false);
+                new PandaCulturePresenter((PandaCultureContract.View) baseFragment1);
                 homePandaculture.setBackgroundColor(getResources().getColor(R.color.tab_backgroud_color));
                 break;
             case R.id.home_panda_live:

@@ -24,7 +24,6 @@ public class PhoneRegisterPresenter implements PhoneRegisterContract.Presenter{
 
     @Override
     public void start() {
-
       panda_channelModle.getPhone(new MyNetWorkCallBack<Drawable>() {
           @Override
           public void onSuccess(Drawable drawable) {
@@ -36,7 +35,6 @@ public class PhoneRegisterPresenter implements PhoneRegisterContract.Presenter{
           }
       });
     }
-
     @Override
     public void getPhoneYz(String num, String yz) {
        panda_channelModle.setphone(num, yz, new MyNetWorkCallBack<String>() {

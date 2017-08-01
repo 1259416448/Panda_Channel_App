@@ -72,8 +72,8 @@ public class PersonalActivity extends BaseActivity {
                 startActivity(intent2);*/
                 break;
             case R.id.linear3:
-               /* Intent intent3 = new Intent(PersonalActivity.this, ShouCangActivity.class);
-                startActivity(intent3);*/
+                Intent intent3 = new Intent(PersonalActivity.this, CollectionActivity.class);
+                startActivity(intent3);
                 break;
             case R.id.linear4:
                 Intent intent4 = new Intent(PersonalActivity.this, SettingActivity.class);

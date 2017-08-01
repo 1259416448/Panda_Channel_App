@@ -72,7 +72,7 @@ public class PhoneRegisterFragment extends BaseFragment implements PhoneRegister
     @OnClick({R.id.phone_et_phonenumber, R.id.phone_et_pictureyanzheng, R.id.phone_et_receiveyanzheng, R.id.phone_bt_getyanzheng, R.id.phone_et_password, R.id.phone_bt_register,R.id.phone_yanzhengma_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.bt_getyanzheng:
+            case R.id.phone_bt_getyanzheng:
                 if(phonenumber()&&pictureyanzheng()) {
                     Log.e("tag","获取验证码");
                     presenter.getPhoneYz(etPhonenumber.getText().toString(),etPictureyanzheng.getText().toString());
@@ -163,7 +163,6 @@ public class PhoneRegisterFragment extends BaseFragment implements PhoneRegister
     @Override
     public void PhoneYzS(String s) {
         Log.e("tag==PhoneYzS",s);
-
     }
     @Override
     public void PhoneYzE(String msg) {

@@ -1,12 +1,14 @@
 package com.example.demo.panda_channel.activity.user;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,9 @@ public class PersonInformationActivity extends BaseActivity implements View.OnCl
     private Button btn_camera;
     private Button btn_album;
     private Button btn_cancel;
+
+    private static final int NEED_CAMERA = 200;
+    private static final int RESULT_PICK = 201;
     /* 请求识别码 */
     private static final int CODE_GALLERY_REQUEST = 0xa0;
     private static final int CODE_CAMERA_REQUEST = 0xa1;
@@ -122,24 +127,26 @@ public class PersonInformationActivity extends BaseActivity implements View.OnCl
                 startActivityForResult(intentFromGallery, CODE_GALLERY_REQUEST);
                 break;
             case R.id.btn_album:
-                // 启动手机相机拍摄照片作为头像
-
-                Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                // 判断存储卡是否可用，存储照片文件
-                if (hasSdcard()) {
-                    intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, Uri
-                            .fromFile(new File(Environment
-                                    .getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, NEED_CAMERA);
+                } else {
+                    //打开相机获取图片
+                    startCamera();
                 }
 
-                startActivityForResult(intentFromCapture, CODE_CAMERA_REQUEST);
                 break;
             case R.id.btn_cancel:
                 popupWindow.dismiss();
                 break;
         }
     }
+    private void startCamera() {
+
+    }
+
 
     /**
      * 提取保存裁剪之后的图片数据，并设置头像部分的View

@@ -1,5 +1,6 @@
 package com.example.demo.panda_channel.activity.user.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +13,20 @@ import android.widget.Toast;
 
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.activity.user.forgetpassword.ForgetpasswordActivity;
+import com.example.demo.panda_channel.activity.user.register.RegisterActivity;
 import com.example.demo.panda_channel.base.BaseActivity;
 import com.example.demo.panda_channel.model.biz.PandaChannelModel;
 import com.example.demo.panda_channel.model.biz.PandaChannelModelImpl;
 import com.example.demo.panda_channel.model.entity.LoginBean;
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
-import com.example.demo.panda_channel.activity.user.register.RegisterActivity;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.SocializeUtils;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,6 +53,9 @@ public class LoginActivity extends BaseActivity {
     TextView tv_forgetpassword;
     private String phonenumber;
     private String password;
+    public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
+    private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ, SHARE_MEDIA.SINA};
+    private ProgressDialog dialog;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -51,7 +63,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void init() {
-
+        initPlatforms();
     }
     @OnClick({R.id.login_image, R.id.microblog, R.id.tv_register, R.id.weixin, R.id.qq, R.id.et_phonenumber, R.id.et_password, R.id.bt_login,R.id.tv_forgetpassword})
     public void onViewClicked(View view) {
@@ -66,10 +78,10 @@ public class LoginActivity extends BaseActivity {
             case R.id.weixin:
                 break;
             case R.id.qq:
-               // UMShareAPI.get(LoginActivity.this).doOauthVerify(LoginActivity.this, platforms.get(0).mPlatform, authListener);
+                UMShareAPI.get(LoginActivity.this).doOauthVerify(LoginActivity.this, platforms.get(0).mPlatform, authListener);
                 break;
             case R.id.microblog:
-                /*UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, new UMAuthListener() {
+                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, new UMAuthListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
                         Log.e("TAG", share_media.toString());
@@ -98,7 +110,7 @@ public class LoginActivity extends BaseActivity {
                     public void onCancel(SHARE_MEDIA share_media, int i) {
                         Log.e("TAG", "取消分享");
                     }
-                });*/
+                });
 
                 break;
             case R.id.et_phonenumber:
@@ -138,6 +150,64 @@ public class LoginActivity extends BaseActivity {
 
                 break;
         }
+    }
+    UMAuthListener authListener = new UMAuthListener() {
+        /**
+         * @desc 授权开始的回调
+         * @param platform 平台名称
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            SocializeUtils.safeShowDialog(dialog);
+        }
 
+        /**
+         * @desc 授权成功的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param data 用户资料返回
+         */
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(LoginActivity.this, "成功了", Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @desc 授权失败的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(LoginActivity.this, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @desc 授权取消的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(LoginActivity.this, "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
+    private void initPlatforms() {
+        platforms.clear();
+        for (SHARE_MEDIA e : list) {
+            if (!e.toString().equals(SHARE_MEDIA.GENERIC.toString())) {
+                platforms.add(e.toSnsPlatform());
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -48,7 +48,7 @@ public class CollectionActivity extends BaseActivity {
     protected void init() {
 
         liveFragment=new LiveFragment();
-        highLightFragment=new HighLightFragment();
+        highLightFragment=new HighLightFragment(bj);
 
         list.add(liveFragment);
         list.add(highLightFragment);
@@ -63,7 +63,6 @@ public class CollectionActivity extends BaseActivity {
         shoucangTab.setTabTextColors(ContextCompat.getColor(this, R.color.black), ContextCompat.getColor(this, R.color.colorPrimary));
 
     }
-
 
     @OnClick({R.id.shoucang_image, R.id.bj})
     public void onViewClicked(View view) {

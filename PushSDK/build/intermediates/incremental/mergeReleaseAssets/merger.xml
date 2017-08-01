@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\MyGongZuo\Panda_Channel_App\PushSDK\assets"/><source path="D:\MyGongZuo\Panda_Channel_App\PushSDK\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\MyGongZuo\Panda_Channel_App\PushSDK\build-types\release\assets"/></dataSet></merger>

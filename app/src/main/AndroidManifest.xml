@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.demo.panda_channel">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    //读取外置存储卡
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />//读取外置存储卡
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -19,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
         <activity android:name=".activity.original.OriginalActivity" />
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.PersonalActivity" />
@@ -31,6 +30,8 @@
         <activity android:name=".activity.user.forgetpassword.ForgetpasswordActivity" />
         <activity android:name=".activity.user.PersonInformationActivity" />
         <activity android:name=".activity.user.ModifyNicknameActivity"></activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".activity.CollectionActivity"/>
     </application>
 
-</manifest>
+    </manifest>

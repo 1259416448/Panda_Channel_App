@@ -73,9 +73,13 @@ public class PhoneRegisterFragment extends BaseFragment implements PhoneRegister
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_getyanzheng:
-                phonenumber();
-                pictureyanzheng();
-                presenter.getPhoneYz(etPhonenumber.getText().toString(),etPictureyanzheng.getText().toString());
+                if(phonenumber()&&pictureyanzheng()) {
+                    Log.e("tag","获取验证码");
+                    presenter.getPhoneYz(etPhonenumber.getText().toString(),etPictureyanzheng.getText().toString());
+                }
+                else {
+                    Toast.makeText(getActivity(),"输入有误",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.bt_register:
                 password();

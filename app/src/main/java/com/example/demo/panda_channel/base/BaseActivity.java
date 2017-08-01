@@ -34,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         PushAgent.getInstance(this).onAppStart();
 
+
     }
 
     protected abstract int getLayoutId();

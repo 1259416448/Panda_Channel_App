@@ -31,9 +31,10 @@ public class PandaCulturePresenter implements PandaCultureContract.Presenter{
             }
 
             @Override
-            public void onError(String errorMsg) {
-              view.setError(errorMsg);
+            public void onError(String errorMsg){
+                view.setError(errorMsg);
             }
+
         });
     }
 }

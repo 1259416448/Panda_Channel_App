@@ -68,8 +68,8 @@ public class PersonalActivity extends BaseActivity {
 
                 break;
             case R.id.linear2:
-               /* Intent intent2 = new Intent(PersonalActivity.this, HistoryActivity.class);
-                startActivity(intent2);*/
+                Intent intent2 = new Intent(PersonalActivity.this, HistroyActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.linear3:
                 Intent intent3 = new Intent(PersonalActivity.this, CollectionActivity.class);

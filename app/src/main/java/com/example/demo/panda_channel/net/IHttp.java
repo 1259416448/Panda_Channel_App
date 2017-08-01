@@ -19,4 +19,5 @@ public interface IHttp {
     void upload();
     File download(String uri, final ProgressDialog pd) throws Exception;
     void loadImage(String url, ImageView imageView);
+
 }

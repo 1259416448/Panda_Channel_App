@@ -1,4 +1,4 @@
-package com.example.demo.panda_channel.activity;
+package com.example.demo.panda_channel;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -18,7 +18,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.activity.original.OriginalActivity;
 import com.example.demo.panda_channel.base.BaseActivity;
 import com.example.demo.panda_channel.base.BaseFragment;
@@ -96,6 +95,8 @@ public class MainActivity extends BaseActivity implements UpdateContract.View{
         homeLiveChina.setBackgroundColor(0);
         switch (view.getId()) {
             case R.id.personImg:
+                Intent personalintent =new Intent(MainActivity.this, PersonalActivity.class);
+                startActivity(personalintent);
                 break;
             case R.id.hudongImg:
                 Intent intent=new Intent(MainActivity.this,OriginalActivity.class);

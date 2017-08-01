@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -54,5 +55,5 @@ dependencies {
     compile 'com.androidkun:pulltorefreshrecyclerview:1.0.6'
     compile 'de.greenrobot:greendao:2.1.0'
     compile 'de.greenrobot:greendao-generator:2.1.0'
-
+    compile project(':mylibrary')
 }

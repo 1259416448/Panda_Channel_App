@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tab_backgroud_color">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/login_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/personal_back_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="登录"
+                android:textColor="#fff"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注册"
+                android:layout_alignParentRight="true"
+                android:textColor="#fff"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用社交账号登录到熊猫频道"
+        android:textSize="15dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="20dp"
+        android:background="#fff"
+        android:layout_gravity="center">
+        <RadioButton
+            android:id="@+id/weixin"
+            android:textSize="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:drawableTop="@mipmap/login_weixin"
+            android:gravity="center_horizontal|bottom"
+            android:text="微信"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+        <RadioButton
+            android:id="@+id/qq"
+            android:textSize="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:drawableTop="@mipmap/login_qq"
+            android:gravity="center_horizontal|bottom"
+            android:text="QQ"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+        <RadioButton
+            android:id="@+id/microblog"
+            android:textSize="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:drawableTop="@mipmap/login_sina"
+            android:gravity="center_horizontal|bottom"
+            android:text="微博"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CNTV通行证"
+        android:textSize="15dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <EditText
+        android:id="@+id/et_phonenumber"
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="账号：请输入邮箱或手机号">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:hint="请输入密码"
+        android:password="true">
+
+    </EditText>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_forgetpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码?"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

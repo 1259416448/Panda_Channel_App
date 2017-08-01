@@ -30,4 +30,10 @@ public interface PandaChannelModel extends BaseModel{
     void getPandaLiveModuleData(String url,MyNetWorkCallBack<PandaLiveMoudleDataBean> callBack);
     void getPandaLiveMultiangLiveData(String url, MyNetWorkCallBack<MultiangleLiveDataBean> callBack);
     void getPandaLiveWacthAndChatDataBean(String url, MyNetWorkCallBack<WacthAndChatDataBean> callBack);
+    void getLogin(String username, String password, MyNetWorkCallBack<LoginBean> callback);
+    void getEmileRegister(String emile, String pwd, String yanzhengma, MyNetWorkCallBack<String> callBack);
+    void setEmiRegs(MyNetWorkCallBack<Drawable> callBack);
+    void getPhone(MyNetWorkCallBack<Drawable> callBack);
+    void setphone(String num, String yz,MyNetWorkCallBack<String> callBack);
+    void getStrPhone(String num, String yz, String pwd,MyNetWorkCallBack<String> callBack);
 }

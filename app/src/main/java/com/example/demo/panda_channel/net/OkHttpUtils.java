@@ -264,7 +264,6 @@ public class OkHttpUtils implements IHttp {
             url = sb.deleteCharAt(sb.length() - 1).toString();
         }
         Request.Builder builder = new Request.Builder();
-
         if (heards != null && heards.size() > 0) {
             Set<String> strings = heards.keySet();
             for (String string : strings) {

@@ -19,6 +19,8 @@ public class HistroyDao {
         entity.addStringProperty("title");
         entity.addStringProperty("date");
         entity.addStringProperty("moviepath");
+        entity.addBooleanProperty("checkbox");
+        entity.addBooleanProperty("flag");
 
         try {
             new DaoGenerator().generateAll(schema,"E:\\AndroidStudioWorkSpace\\Panda_Channel\\app\\src\\main\\java");

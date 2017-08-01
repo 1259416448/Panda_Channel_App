@@ -1,5 +1,6 @@
 package com.example.demo.panda_channel.fragment.collection;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -8,12 +9,17 @@ import android.widget.TextView;
 
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.base.BaseFragment;
+import com.example.demo.panda_channel.db.collection.DaoMaster;
+import com.example.demo.panda_channel.db.collection.DaoSession;
 import com.example.demo.panda_channel.db.collection.MyCollection;
+import com.example.demo.panda_channel.db.collection.MyCollectionDao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.dao.query.QueryBuilder;
 
 /**
  * Created by 闫雨婷 on 2017/8/1.
@@ -47,14 +53,15 @@ public class HighLightFragment extends BaseFragment {
     @Override
     protected void init(View view) {
 
-        for(int i=0;i<=5;i++){
-            MyCollection collection=new MyCollection();
-            collection.setDate("2017/8/1"+i);
-            collection.setTitle("标题"+i);
-            list.add(collection);
-        }
+//        for(int i=0;i<=5;i++){
+//            MyCollection collection=new MyCollection();
+//            collection.setDate("2017/8/1"+i);
+//            collection.setTitle("标题"+i);
+//            list.add(collection);
+//        }
         adapter=new HighLightListViewAdapter(list,getContext());
         highlightListview.setAdapter(adapter);
+        query();
     }
 
     @Override
@@ -79,11 +86,10 @@ public class HighLightFragment extends BaseFragment {
                 }else{
                     adapter.notifyDataSetChanged();
 //                    Intent intent = new Intent(getContext(), ReportActivity.class);
-//                    intent.putExtra("url", arr1.get(i).getUrl());
-//                    intent.putExtra("img", arr1.get(i).getImg());
+//                    intent.putExtra("url", list.get(i).getMoviepath());
+//                    intent.putExtra("img", list.get(i).getImg());
 //                    startActivity(intent);
                 }
-
             }
         });
         textView.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +145,7 @@ public class HighLightFragment extends BaseFragment {
                 if (textView.getText().equals("完成")) {
                     for (int i = list.size() - 1; i >= 0; i--) {
                         if (list.get(i).isFlag()) {
-//                            delect(arr1.get(i));
+                            delete(list.get(i));
                             list.remove(list.get(i));
                         }
                     }
@@ -153,5 +159,34 @@ public class HighLightFragment extends BaseFragment {
                 }
                 break;
         }
+    }
+
+    public void query() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getContext(), "tryrt.db", null);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        DaoSession daoSession = daoMaster.newSession();
+        MyCollectionDao myCollectionDao = daoSession.getMyCollectionDao();
+        QueryBuilder<MyCollection> histroyQueryBuilder= myCollectionDao.queryBuilder();
+        List<MyCollection> list = histroyQueryBuilder.list();
+        list.clear();
+
+        for (int x = 0; x < list.size(); x++) {
+            MyCollection collection = list.get(x);
+            list.add(collection);
+
+        }
+        adapter.notifyDataSetChanged();
+        helper.close();
+    }
+
+    public void delete(MyCollection collection) {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getContext(), "tryrt.db", null);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        DaoSession daoSession = daoMaster.newSession();
+        MyCollectionDao myCollectionDao = daoSession.getMyCollectionDao();
+        myCollectionDao.delete(collection);
+        helper.close();
     }
 }

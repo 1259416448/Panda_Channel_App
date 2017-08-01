@@ -11,20 +11,20 @@ public class MyHistroy {
     private String title;
     private String date;
     private String moviepath;
+    private boolean checkbox;
+    private boolean flag;
 
     public MyHistroy() {
     }
 
-    public MyHistroy(Long id) {
-        this.id = id;
-    }
-
-    public MyHistroy(Long id, String img, String title, String date, String moviepath) {
+    public MyHistroy(Long id, String img, String title, String date, String moviepath, Boolean checkbox, Boolean flag) {
         this.id = id;
         this.img = img;
         this.title = title;
         this.date = date;
         this.moviepath = moviepath;
+        this.checkbox = checkbox;
+        this.flag = flag;
     }
 
     public Long getId() {
@@ -67,4 +67,19 @@ public class MyHistroy {
         this.moviepath = moviepath;
     }
 
+    public boolean isCheckbox() {
+        return checkbox;
+    }
+
+    public void setCheckbox(boolean checkbox) {
+        this.checkbox = checkbox;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 }

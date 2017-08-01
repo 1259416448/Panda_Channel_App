@@ -28,6 +28,8 @@ public class MyHistroyDao extends AbstractDao<MyHistroy, Long> {
         public final static Property Title = new Property(2, String.class, "title", false, "TITLE");
         public final static Property Date = new Property(3, String.class, "date", false, "DATE");
         public final static Property Moviepath = new Property(4, String.class, "moviepath", false, "MOVIEPATH");
+        public final static Property Checkbox = new Property(5, Boolean.class, "checkbox", false, "CHECKBOX");
+        public final static Property Flag = new Property(6, Boolean.class, "flag", false, "FLAG");
     };
 
 
@@ -47,7 +49,9 @@ public class MyHistroyDao extends AbstractDao<MyHistroy, Long> {
                 "\"IMG\" TEXT," + // 1: img
                 "\"TITLE\" TEXT," + // 2: title
                 "\"DATE\" TEXT," + // 3: date
-                "\"MOVIEPATH\" TEXT);"); // 4: moviepath
+                "\"MOVIEPATH\" TEXT," + // 4: moviepath
+                "\"CHECKBOX\" INTEGER," + // 5: checkbox
+                "\"FLAG\" INTEGER);"); // 6: flag
     }
 
     /** Drops the underlying database table. */
@@ -85,6 +89,16 @@ public class MyHistroyDao extends AbstractDao<MyHistroy, Long> {
         if (moviepath != null) {
             stmt.bindString(5, moviepath);
         }
+ 
+        Boolean checkbox = entity.getCheckbox();
+        if (checkbox != null) {
+            stmt.bindLong(6, checkbox ? 1L: 0L);
+        }
+ 
+        Boolean flag = entity.getFlag();
+        if (flag != null) {
+            stmt.bindLong(7, flag ? 1L: 0L);
+        }
     }
 
     /** @inheritdoc */
@@ -101,7 +115,9 @@ public class MyHistroyDao extends AbstractDao<MyHistroy, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // img
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // title
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // date
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // moviepath
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // moviepath
+            cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0, // checkbox
+            cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0 // flag
         );
         return entity;
     }
@@ -114,6 +130,8 @@ public class MyHistroyDao extends AbstractDao<MyHistroy, Long> {
         entity.setTitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setDate(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setMoviepath(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setCheckbox(cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0);
+        entity.setFlag(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
      }
     
     /** @inheritdoc */

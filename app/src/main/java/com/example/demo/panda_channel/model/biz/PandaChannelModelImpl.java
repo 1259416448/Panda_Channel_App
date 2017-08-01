@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.config.Urls;
 import com.example.demo.panda_channel.model.entity.HomeData;
-import com.example.demo.panda_channel.model.entity.HomePandaEyeBean;
 import com.example.demo.panda_channel.model.entity.LoginBean;
 import com.example.demo.panda_channel.model.entity.MultiangleLiveDataBean;
 import com.example.demo.panda_channel.model.entity.OriginalBean;
@@ -37,10 +36,6 @@ public class PandaChannelModelImpl implements PandaChannelModel{
     }
 
     @Override
-    public void getHomePandaEye(MyNetWorkCallBack<HomePandaEyeBean> callBack) {
-        iHttp.get(Urls.HOMEVIDEOURL,null,callBack);
-    }
-    @Override
     public void getPandaEyeData(MyNetWorkCallBack<PandaEyesDataBean> callBack) {
         iHttp.get(Urls.PANDAREPORTTWO,null,callBack);
     }
@@ -57,6 +52,11 @@ public class PandaChannelModelImpl implements PandaChannelModel{
     @Override
     public void getOriginal(MyNetWorkCallBack<OriginalBean> callBack) {
         iHttp.get(Urls.ORIGINAL,null,callBack);
+    }
+
+    @Override
+    public void getPandaChildLiveData(MyNetWorkCallBack<PandaLiveChildLiveDataBean> callBack) {
+        iHttp.get(Urls.PANDALIVE,null,callBack);
     }
 
     @Override

@@ -54,4 +54,5 @@ dependencies {
     compile 'de.greenrobot:greendao:2.1.0'
     compile 'de.greenrobot:greendao-generator:2.1.0'
     compile project(':mylibrary')
+    compile project(':jcvideoplayer-lib')
 }

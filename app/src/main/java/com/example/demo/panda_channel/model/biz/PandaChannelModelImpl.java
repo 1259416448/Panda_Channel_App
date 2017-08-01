@@ -15,6 +15,7 @@ import com.example.demo.panda_channel.model.entity.PandaEyesDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveChildLiveDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveMoudleDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveTablyoutData;
+import com.example.demo.panda_channel.model.entity.ReportVideoPlayBean;
 import com.example.demo.panda_channel.model.entity.WacthAndChatDataBean;
 import com.example.demo.panda_channel.net.OkHttpUtils;
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
@@ -139,6 +140,10 @@ public class PandaChannelModelImpl implements PandaChannelModel{
         OkHttpUtils.getInstance().registerPost(Urls.PHONEREGISTER,map,map1,callBack);
     }
 
+    @Override
+    public void getReportData(String url, MyNetWorkCallBack<ReportVideoPlayBean> callBack) {
+        iHttp.get(url,null,callBack);
+    }
 
 
     @Override

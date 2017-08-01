@@ -1,5 +1,6 @@
 package com.example.demo.panda_channel.ui.module.pandaeye;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.demo.panda_channel.R;
+import com.example.demo.panda_channel.activity.report.ReportActivity;
 import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
+import com.example.demo.panda_channel.config.Urls;
 import com.example.demo.panda_channel.model.entity.PandaEyesChildDataBean;
 import com.example.demo.panda_channel.model.entity.PandaEyesDataBean;
 import com.example.demo.panda_channel.ui.module.pandaeye.adapter.PandaEyeXrecyclerAdapter;
@@ -63,7 +66,15 @@ public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.V
         pandaEyeXrecycler.addHeaderView(header);
         img = (ImageView) header.findViewById(R.id.pandaeye_xrecyclerview_header_img);
         title = (TextView) header.findViewById(R.id.pandaeye_xrecyclerview_header_title);
-
+        adapter.setOnCilkListens(new PandaEyeXrecyclerAdapter.setOnCilkListen() {
+            @Override
+            public void OnCilkListen(PandaEyesChildDataBean.ListBean bean, int postion) {
+                Intent intent =new Intent(getActivity(), ReportActivity.class);
+                intent.putExtra("url", Urls.VIDEOURL+"?pid="+bean.getGuid());
+                intent.putExtra("img",bean.getPicurl());
+                startActivity(intent);
+            }
+        });
     }
 
     private View header;

@@ -11,6 +11,7 @@ import com.example.demo.panda_channel.model.entity.PandaEyesDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveChildLiveDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveMoudleDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveTablyoutData;
+import com.example.demo.panda_channel.model.entity.ReportVideoPlayBean;
 import com.example.demo.panda_channel.model.entity.WacthAndChatDataBean;
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 import com.example.demo.panda_channel.version.UpDateLoading;
@@ -37,4 +38,5 @@ public interface PandaChannelModel extends BaseModel{
     void getPhone(MyNetWorkCallBack<Drawable> callBack);
     void setphone(String num, String yz,MyNetWorkCallBack<String> callBack);
     void getStrPhone(String num, String yz, String pwd,MyNetWorkCallBack<String> callBack);
+    void getReportData(String url, MyNetWorkCallBack<ReportVideoPlayBean> callBack);
 }

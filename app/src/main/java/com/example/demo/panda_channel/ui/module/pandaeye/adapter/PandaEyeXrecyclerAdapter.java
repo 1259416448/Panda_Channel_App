@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,7 +24,13 @@ import java.util.Date;
 public class PandaEyeXrecyclerAdapter extends RecyclerView.Adapter{
     private Context context;
     private ArrayList<PandaEyesChildDataBean.ListBean> pandachilddatalist;
-
+    public interface setOnCilkListen{
+        void OnCilkListen(PandaEyesChildDataBean.ListBean bean,int postion);
+    }
+    private setOnCilkListen onCilkListen;
+    public void setOnCilkListens(setOnCilkListen onCilkListen){
+        this.onCilkListen=onCilkListen;
+    }
     public PandaEyeXrecyclerAdapter(Context context, ArrayList<PandaEyesChildDataBean.ListBean> pandachilddatalist) {
         this.context = context;
         this.pandachilddatalist = pandachilddatalist;
@@ -36,10 +43,9 @@ public class PandaEyeXrecyclerAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder= (ViewHolder) holder;
         viewHolder.title.setText(pandachilddatalist.get(position).getTitle());
-
         Date date=new Date(pandachilddatalist.get(position).getFocus_date());
         Calendar calendar=Calendar.getInstance();
         calendar.setTime(date);
@@ -48,6 +54,12 @@ public class PandaEyeXrecyclerAdapter extends RecyclerView.Adapter{
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         viewHolder.data.setText(year+"/"+month+"/"+day);
         Glide.with(context).load(pandachilddatalist.get(position).getPicurl()).into(viewHolder.img);
+        viewHolder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCilkListen.OnCilkListen(pandachilddatalist.get(position),position);
+            }
+        });
     }
 
     @Override
@@ -58,8 +70,10 @@ public class PandaEyeXrecyclerAdapter extends RecyclerView.Adapter{
         ImageView img;
         TextView title;
         TextView data;
+        RelativeLayout item;
         public ViewHolder(View itemView) {
             super(itemView);
+            item= (RelativeLayout) itemView.findViewById(R.id.pandaeye_xrecyclerview_item);
             img= (ImageView) itemView.findViewById(R.id.panda_eye_item_img);
             title= (TextView) itemView.findViewById(R.id.panda_eye_item_title);
             data= (TextView) itemView.findViewById(R.id.panda_eye_item_data);

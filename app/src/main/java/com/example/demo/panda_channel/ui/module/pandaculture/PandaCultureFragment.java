@@ -2,7 +2,6 @@ package com.example.demo.panda_channel.ui.module.pandaculture;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.demo.panda_channel.R;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 
 public class PandaCultureFragment extends BaseFragment implements PandaCultureContract.View {
@@ -28,10 +26,8 @@ public class PandaCultureFragment extends BaseFragment implements PandaCultureCo
     PandaCultureContract.Presenter presenter;
     @BindView(R.id.CultureXRecycler)
     XRecyclerView CultureXRecycler;
-    Unbinder unbinder;
-    @BindView(R.id.but)
-    Button but;
-    Unbinder unbinder1;
+
+
     private ArrayList<RollVideoBean.ListBean> arr;
     private ArrayList<RollVideoBean.BigImgBean> list;
     private CultureXRecyclerAdapter adapter;
@@ -59,15 +55,7 @@ public class PandaCultureFragment extends BaseFragment implements PandaCultureCo
         banner = (Banner) inflate.findViewById(R.id.item_culture_banner);
         CultureXRecycler.addHeaderView(inflate);
 
-      but.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
 
-
-
-
-          }
-      });
     }
 
 

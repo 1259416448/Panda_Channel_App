@@ -58,4 +58,5 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.androidkun:pulltorefreshrecyclerview:1.0.6'
     compile project(':mylibrary')
+    compile project(':PushSDK')
 }

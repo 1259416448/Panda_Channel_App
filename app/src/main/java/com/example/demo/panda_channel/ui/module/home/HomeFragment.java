@@ -26,7 +26,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     XRecyclerView xRecyclerView;
     private HomeContract.Presenter presenter;
     private ArrayList<Object> list=new ArrayList<>();
-    private ArrayList<HomeData> homeDatas = new ArrayList<>();
     private HomeAdapter adapter;
 
     @Override
@@ -80,7 +79,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     public void setListData(HomeData homeData) {
         ACache aCache=ACache.get(App.context);
         HomeData homeData1 = (HomeData) aCache.getAsObject("HomeData");
-        homeDatas.add(homeData1);
+        list.add(homeData1);
         list.clear();
         list.add(homeData.getData().getBigImg());
         list.add(homeData.getData().getArea());

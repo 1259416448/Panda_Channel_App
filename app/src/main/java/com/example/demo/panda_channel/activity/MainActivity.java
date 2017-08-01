@@ -1,4 +1,4 @@
-package com.example.demo.panda_channel;
+package com.example.demo.panda_channel.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.activity.original.OriginalActivity;
 import com.example.demo.panda_channel.base.BaseActivity;
 import com.example.demo.panda_channel.base.BaseFragment;

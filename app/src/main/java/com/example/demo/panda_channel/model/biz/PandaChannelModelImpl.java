@@ -1,8 +1,14 @@
 package com.example.demo.panda_channel.model.biz;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+
+import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.config.Urls;
 import com.example.demo.panda_channel.model.entity.HomeData;
 import com.example.demo.panda_channel.model.entity.HomePandaEyeBean;
+import com.example.demo.panda_channel.model.entity.LoginBean;
 import com.example.demo.panda_channel.model.entity.MultiangleLiveDataBean;
 import com.example.demo.panda_channel.model.entity.OriginalBean;
 import com.example.demo.panda_channel.model.entity.PandaEyesChildDataBean;
@@ -11,8 +17,14 @@ import com.example.demo.panda_channel.model.entity.PandaLiveChildLiveDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveMoudleDataBean;
 import com.example.demo.panda_channel.model.entity.PandaLiveTablyoutData;
 import com.example.demo.panda_channel.model.entity.WacthAndChatDataBean;
+import com.example.demo.panda_channel.net.OkHttpUtils;
 import com.example.demo.panda_channel.net.callback.MyNetWorkCallBack;
 import com.example.demo.panda_channel.version.UpDateLoading;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 闫雨婷 on 2017/7/27.
@@ -67,10 +79,6 @@ public class PandaChannelModelImpl implements PandaChannelModel{
         iHttp.get(url,null,callBack);
     }
 
-    @Override
-    public void getPandaChildLiveData(MyNetWorkCallBack<PandaLiveChildLiveDataBean> callBack) {
-        iHttp.get(Urls.PANDALIVE,null,callBack);
-    }
     @Override
     public void setEmiRegs(MyNetWorkCallBack<Drawable> callBack) {
         OkHttpUtils.getInstance().loginPost(Urls.EMILEYANZHENG, null, null, callBack);

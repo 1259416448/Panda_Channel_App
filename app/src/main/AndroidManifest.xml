@@ -29,8 +29,7 @@
         <activity android:name=".activity.user.forgetpassword.ForgetpasswordActivity" />
         <activity android:name=".activity.user.PersonInformationActivity" />
         <activity android:name=".activity.user.ModifyNicknameActivity"></activity>
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.WebViewActivity"/>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".activity.CollectionActivity"/>
     </application>
 

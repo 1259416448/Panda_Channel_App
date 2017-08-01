@@ -78,10 +78,9 @@ public class PandaChannelModelImpl implements PandaChannelModel{
     public void getPandaLiveWacthAndChatDataBean(String url, MyNetWorkCallBack<WacthAndChatDataBean> callBack) {
         iHttp.get(url,null,callBack);
     }
-
     @Override
     public void getPandaChildLiveData(MyNetWorkCallBack<PandaLiveChildLiveDataBean> callBack) {
-        iHttp.get(Urls.PANDALIVE,null,callBack);//
+        iHttp.get(Urls.PANDALIVE,null,callBack);
     }
     @Override
     public void setEmiRegs(MyNetWorkCallBack<Drawable> callBack) {

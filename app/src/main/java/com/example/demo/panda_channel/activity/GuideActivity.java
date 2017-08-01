@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import com.example.demo.panda_channel.MainActivity;
 import com.example.demo.panda_channel.R;
-
+//
 public class GuideActivity extends AppCompatActivity {
 
     @Override

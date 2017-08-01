@@ -235,7 +235,6 @@ public class OkHttpUtils implements IHttp {
     @Override
     public void loadImage(String url, ImageView imageView) {
         Glide.with(App.context).load(url).into(imageView);
-//        glide.load(url).into(imageView);
     }
 
     private <T> T getGeneric(String jsonData, MyNetWorkCallBack<T> callback) {

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/modifynickname_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/personal_back_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="修改昵称"
+                android:textColor="#fff"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/tab_backgroud_color"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:textSize="18dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px"
+        android:layout_marginTop="30px"
+        android:background="#fff">
+
+        <EditText
+            android:id="@+id/edit_nickmane"
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:background="@drawable/pe_shape_border_gray"
+            android:paddingBottom="30px"
+            android:paddingTop="30px"
+            android:paddingLeft="62px"
+            android:paddingRight="15px"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textCursorDrawable="@null" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/com_facebook_tooltip_black_xout"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px"
+        android:layout_marginTop="32px"
+        android:textSize="12sp"
+        android:textColor="#7c7c7c"
+        android:lineSpacingExtra="15px"
+        android:text="用户昵称只能为汉字，字母，数字，下划线组成；长度为3-10个汉字(6-20个非汉字字符)；不能为空；不能有禁词；敏感词；不能重复" />
+</LinearLayout>

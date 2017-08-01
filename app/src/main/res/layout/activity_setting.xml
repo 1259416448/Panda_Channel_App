@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tab_backgroud_color"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/setting_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/personal_back_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="设置"
+                android:textColor="#fff"
+                android:textSize="18dp" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="常用功能"
+        android:textSize="18dp" />
+
+    <RelativeLayout
+        android:layout_width="390dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否接受消息推送"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/setting_selector"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:button="@null"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="@color/tab_backgroud_color" />
+
+    <RelativeLayout
+        android:layout_width="390dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="自动播放下一集"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_marginLeft="10dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/setting_selector"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:button="@null"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="@color/tab_backgroud_color" />
+
+    <RelativeLayout
+        android:id="@+id/setting_clear"
+        android:layout_width="390dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除缓存"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"/>
+
+        <ImageView
+            android:id="@+id/personal_delete_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/personal_delete_img"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="29.85M"
+            android:layout_toLeftOf="@id/personal_delete_img"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="@color/tab_backgroud_color" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="其他"
+        android:textSize="18dp" />
+
+    <RelativeLayout
+        android:id="@+id/setting_fankui"
+        android:layout_width="390dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#fff"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/personal_enter_img" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="用户反馈及帮助"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="@color/tab_backgroud_color"/>
+
+    <RelativeLayout
+        android:id="@+id/setting_shengji"
+        android:layout_width="390dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#fff">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/personal_enter_img"
+            android:id="@+id/imageView3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="检测升级"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_alignTop="@+id/imageView3"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="@color/tab_backgroud_color"/>
+
+    <RelativeLayout
+        android:id="@+id/setting_like"
+        android:layout_width="390dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#fff">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/personal_enter_img" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="喜欢我们，给我好评"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/setting_aboutpanda"
+        android:layout_width="390dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="关于熊猫频道"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/personal_enter_img" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="@color/tab_backgroud_color"/>
+
+</LinearLayout>

@@ -3,7 +3,6 @@ package com.example.demo.panda_channel.model.biz;
 import android.graphics.drawable.Drawable;
 
 import com.example.demo.panda_channel.model.entity.HomeData;
-import com.example.demo.panda_channel.model.entity.HomePandaEyeBean;
 import com.example.demo.panda_channel.model.entity.LoginBean;
 import com.example.demo.panda_channel.model.entity.MultiangleLiveDataBean;
 import com.example.demo.panda_channel.model.entity.OriginalBean;
@@ -23,7 +22,6 @@ import com.example.demo.panda_channel.version.UpDateLoading;
 //业务事件
 public interface PandaChannelModel extends BaseModel{
     void getHomeData(MyNetWorkCallBack<HomeData> callback);
-    void getHomePandaEye(MyNetWorkCallBack<HomePandaEyeBean> callBack);
     void getPandaEyeData(MyNetWorkCallBack<PandaEyesDataBean> callBack);
     void getPandaEyeChildData(String url,MyNetWorkCallBack<PandaEyesChildDataBean> callBack);
     void getVersion(MyNetWorkCallBack<UpDateLoading> callBack);

@@ -26,7 +26,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 /**
  * Created by 闫雨婷 on 2017/8/1.
  */
-//
+
 public class HighLightFragment extends BaseFragment {
 
     @BindView(R.id.highlight_listview)
@@ -54,13 +54,6 @@ public class HighLightFragment extends BaseFragment {
 
     @Override
     protected void init(View view) {
-
-//        for(int i=0;i<=5;i++){
-//            MyCollection collection=new MyCollection();
-//            collection.setDate("2017/8/1");
-//            collection.setTitle("标题");
-//            list.add(collection);
-//        }
         adapter=new HighLightListViewAdapter(list,getContext());
         highlightListview.setAdapter(adapter);
         createTable();
@@ -149,8 +142,8 @@ public class HighLightFragment extends BaseFragment {
                 if (textView.getText().equals("完成")) {
                     for (int i = list.size() - 1; i >= 0; i--) {
                         if (list.get(i).isFlag()) {
+                            myCollectionDao.delete(list.get(i));
                             list.remove(list.get(i));
-//                            myCollectionDao.delete(list.get(i));
                         }
                     }
                     number = 0;
@@ -176,11 +169,10 @@ public class HighLightFragment extends BaseFragment {
 
     public void query() {
         QueryBuilder<MyCollection> histroyQueryBuilder= myCollectionDao.queryBuilder();
-        List<MyCollection> list = histroyQueryBuilder.list();
-        list.clear();
+        List<MyCollection> collectionList = histroyQueryBuilder.list();
 
-        for (int x = 0; x < list.size(); x++) {
-            MyCollection collection = list.get(x);
+        for (int x = 0; x < collectionList.size(); x++) {
+            MyCollection collection = collectionList.get(x);
             list.add(collection);
 
         }

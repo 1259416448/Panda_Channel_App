@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.example.demo.panda_channel.R;
-import com.example.demo.panda_channel.activity.report.ReportActivity;
+import com.example.demo.panda_channel.activity.WebViewActivity;
 import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.config.Urls;
@@ -41,6 +41,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     private ArrayList<Object> list=new ArrayList<>();
     private HomeAdapter adapter;
 
+    boolean flag = false;
     @Override
     protected int getLayoutId() {
         return R.layout.home_fragment;
@@ -73,83 +74,244 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void setViwpagerListener(int pos, List<HomeData.DataBean.BigImgBean> bigImg) {
 
-                ToastManager.show(pos+"");
             }
 
             @Override
             public void setWonderfulListener(HomeData.DataBean.AreaBean.ListscrollBean wonderbean) {
                 ToastManager.show("这是精彩推荐");
 
-                Intent intent = new Intent(getActivity(), ReportActivity.class);
-                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + wonderbean.getPid());
-                intent.putExtra("img", wonderbean.getImage());
-                getActivity().startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ReportActivity.class);
+//                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + wonderbean.getPid());
+//                intent.putExtra("img", wonderbean.getImage());
+//                getActivity().startActivity(intent);
+                List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
 
-
-                MyHistroy dataBean = new MyHistroy();
-                dataBean.setTitle(wonderbean.getTitle());
-                dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + wonderbean.getPid());
-                dataBean.setImg(wonderbean.getImage());
-                dataBean.setDate("");
-                myHistroyDao.insert(dataBean);
+                if(histroylist.size()==0){
+                    MyHistroy dataBean = new MyHistroy();
+                    dataBean.setTitle(wonderbean.getTitle());
+                    dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + wonderbean.getPid());
+                    dataBean.setImg(wonderbean.getImage());
+                    dataBean.setDate("");
+                    myHistroyDao.insert(dataBean);
+                }else{
+                    for (int i = 0; i < histroylist.size(); i++) {
+                        if (wonderbean.getTitle().equals(histroylist.get(i).getTitle())) {
+                            histroylist.set(0, histroylist.get(i));
+                             flag= true;
+                            return;
+                        }
+                    }
+                    if (flag == true) {
+                        myHistroyDao.deleteAll();
+                        for (int i = 0; i < histroylist.size(); i++) {
+                            myHistroyDao.insert(histroylist.get(i));
+                        }
+                        flag = false;
+                    } else {
+                        MyHistroy dataBean = new MyHistroy();
+                        dataBean.setTitle(wonderbean.getTitle());
+                        dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + wonderbean.getPid());
+                        dataBean.setImg(wonderbean.getImage());
+                        dataBean.setDate("");
+                        myHistroyDao.insert(dataBean);
+                    }
+                }
             }
 
             @Override
             public void setPandaeyeVideoListener(HomePandaEyeBean.ListBean pandaeyebean) {
-                ToastManager.show("这是熊猫观察item");
 
 //                Intent intent = new Intent(getActivity(), ReportActivity.class);
 //                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
 //                intent.putExtra("img", pandaeyebean.getImage());
 //                getActivity().startActivity(intent);
 
-                MyHistroy dataBean = new MyHistroy();
-                dataBean.setTitle(pandaeyebean.getTitle());
-                dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
-                dataBean.setImg(pandaeyebean.getImage());
-                dataBean.setDate(pandaeyebean.getDaytime());
-                myHistroyDao.insert(dataBean);
-
+                List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
+                if(histroylist.size()==0){
+                    MyHistroy dataBean = new MyHistroy();
+                    dataBean.setTitle(pandaeyebean.getTitle());
+                    dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                    dataBean.setImg(pandaeyebean.getImage());
+                    dataBean.setDate(pandaeyebean.getDaytime());
+                    myHistroyDao.insert(dataBean);
+                }else{
+                    for (int i = 0; i < histroylist.size(); i++) {
+                        if (pandaeyebean.getTitle().equals(histroylist.get(i).getTitle())) {
+                            histroylist.set(0, histroylist.get(i));
+                            flag= true;
+                            return;
+                        }
+                    }
+                    if (flag == true) {
+                        myHistroyDao.deleteAll();
+                        for (int i = 0; i < histroylist.size(); i++) {
+                            myHistroyDao.insert(histroylist.get(i));
+                        }
+                        flag = false;
+                    } else {
+                        MyHistroy dataBean = new MyHistroy();
+                        dataBean.setTitle(pandaeyebean.getTitle());
+                        dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                        dataBean.setImg(pandaeyebean.getImage());
+                        dataBean.setDate(pandaeyebean.getDaytime());
+                        myHistroyDao.insert(dataBean);
+                    }
+                }
             }
 
             @Override
             public void setPandaeyeoneListener(HomeData.DataBean.PandaeyeBean.ItemsBean pandaeyebean) {
-                ToastManager.show("这是熊猫观察1");
+                List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
+                if(histroylist.size()==0){
+                    MyHistroy dataBean = new MyHistroy();
+                    dataBean.setTitle(pandaeyebean.getTitle());
+                    dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                    dataBean.setImg("");
+                    dataBean.setDate("");
+                    myHistroyDao.insert(dataBean);
+                }else{
+                    for (int i = 0; i < histroylist.size(); i++) {
+                        if (pandaeyebean.getTitle().equals(histroylist.get(i).getTitle())) {
+                            histroylist.set(0, histroylist.get(i));
+                            flag= true;
+                            return;
+                        }
+                    }
+                    if (flag == true) {
+                        myHistroyDao.deleteAll();
+                        for (int i = 0; i < histroylist.size(); i++) {
+                            myHistroyDao.insert(histroylist.get(i));
+                        }
+                        flag = false;
+                    } else {
+                        MyHistroy dataBean = new MyHistroy();
+                        dataBean.setTitle(pandaeyebean.getTitle());
+                        dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                        dataBean.setImg("");
+                        dataBean.setDate("");
+                        myHistroyDao.insert(dataBean);
+                    }
+                }
             }
 
             @Override
             public void setPandaeyetwoListener(HomeData.DataBean.PandaeyeBean.ItemsBean pandaeyebean) {
-                ToastManager.show("这是熊猫观察2");
+                List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
+                if(histroylist.size()==0){
+                    MyHistroy dataBean = new MyHistroy();
+                    dataBean.setTitle(pandaeyebean.getTitle());
+                    dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                    dataBean.setImg("");
+                    dataBean.setDate("");
+                    myHistroyDao.insert(dataBean);
+                }else{
+                    for (int i = 0; i < histroylist.size(); i++) {
+                        if (pandaeyebean.getTitle().equals(histroylist.get(i).getTitle())) {
+                            histroylist.set(0, histroylist.get(i));
+                            flag= true;
+                            return;
+                        }
+                    }
+                    if (flag == true) {
+                        myHistroyDao.deleteAll();
+                        for (int i = 0; i < histroylist.size(); i++) {
+                            myHistroyDao.insert(histroylist.get(i));
+                        }
+                        flag = false;
+                    } else {
+                        MyHistroy dataBean = new MyHistroy();
+                        dataBean.setTitle(pandaeyebean.getTitle());
+                        dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                        dataBean.setImg("");
+                        dataBean.setDate("");
+                        myHistroyDao.insert(dataBean);
+                    }
+                }
             }
 
             @Override
             public void setPandaliveListener(HomeData.DataBean.PandaliveBean.ListBean pandabean) {
-                ToastManager.show("这是熊猫直播");
+              ToastManager.show(pandabean.getTitle());
             }
 
             @Override
             public void setPangtwallliveListener(HomeData.DataBean.WallliveBean.ListBeanX wallbean) {
-                ToastManager.show("这是长城直播");
+                ToastManager.show(wallbean.getTitle());
             }
 
             @Override
             public void setChinaliveListener(HomeData.DataBean.ChinaliveBean.ListBeanXX bean) {
-                ToastManager.show("这是直播中国");
+                ToastManager.show(bean.getTitle());
             }
 
             @Override
             public void setInteractliveListener(HomeData.DataBean.InteractiveBean.InteractiveoneBean interbean) {
-                ToastManager.show("这是特别策划");
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url", interbean.getUrl());
+                intent.putExtra("title", interbean.getTitle());
+                getActivity().startActivity(intent);
             }
 
             @Override
             public void setCctvliveListener(CCTVBean.ListBean cctvbean) {
-                ToastManager.show("这是cctv");
+                List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
+                if (histroylist.size() == 0) {
+                    MyHistroy dataBean = new MyHistroy();
+                    dataBean.setTitle(cctvbean.getTitle());
+                    dataBean.setDate("");
+                    dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + cctvbean.getPid());
+                    dataBean.setImg(cctvbean.getImage());
+                    myHistroyDao.insert(dataBean);
+                } else {
+                    for (int i = 0; i < histroylist.size(); i++) {
+                        if (cctvbean.getTitle().equals(histroylist.get(i).getTitle())) {
+                            histroylist.set(0, histroylist.get(i));
+                            flag = true;
+                            return;
+                        }
+                    }
+                    if (flag == true) {
+                        flag = false;
+                    } else {
+                        MyHistroy dataBean = new MyHistroy();
+                        dataBean.setTitle(cctvbean.getTitle());
+                        dataBean.setDate("");
+                        dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + cctvbean.getPid());
+                        dataBean.setImg(cctvbean.getImage());
+                        myHistroyDao.insert(dataBean);
+                    }
+                }
             }
 
             @Override
             public void setLightChinaListener(LightChinaBean.ListBean lightbean) {
-                ToastManager.show("这是光影中国");
+                List<MyHistroy> list = myHistroyDao.queryBuilder().build().list();
+                if(list.size()==0){
+                    MyHistroy histroy=new MyHistroy();
+                    histroy.setMoviepath(Urls.VIDEOURL+"?pid="+lightbean.getPid());
+                    histroy.setDate(lightbean.getDaytime());
+                    histroy.setTitle(lightbean.getTitle());
+                    histroy.setImg(lightbean.getImage());
+                    myHistroyDao.insert(histroy);
+                }else{
+                    for(int i=0;i<list.size();i++){
+                        if(lightbean.getTitle().equals(list.get(i).getTitle())){
+                            list.set(0,list.get(i));
+                            flag=true;
+                            return;
+                        }
+                    }
+                    if(flag==true){
+                        flag=false;
+                    }else{
+                        MyHistroy histroy=new MyHistroy();
+                        histroy.setMoviepath(Urls.VIDEOURL+"?pid="+lightbean.getPid());
+                        histroy.setDate(lightbean.getDaytime());
+                        histroy.setTitle(lightbean.getTitle());
+                        histroy.setImg(lightbean.getImage());
+                        myHistroyDao.insert(histroy);
+                    }
+                }
             }
         });
     }

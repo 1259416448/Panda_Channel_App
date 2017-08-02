@@ -34,7 +34,7 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter {
 
     public interface setOnClickListener {
-        void setViwpagerListener(int pos, List<HomeData.DataBean.BigImgBean> bigImg);
+        void setViewpagerListener(int position,List<HomeData.DataBean.BigImgBean> bigImg);
 
         void setWonderfulListener(HomeData.DataBean.AreaBean.ListscrollBean wonderbean);
 
@@ -288,10 +288,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
             bigimgviewpager.setOnBannerListener(new OnBannerListener() {
                 @Override
                 public void OnBannerClick(int position) {
-                    OnClickListener.setViwpagerListener(position, bigImgs);
+                    OnClickListener.setViewpagerListener(position,bigImgs);
                 }
             });
-
         }
     }
 

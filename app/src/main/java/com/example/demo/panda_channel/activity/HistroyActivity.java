@@ -1,5 +1,6 @@
 package com.example.demo.panda_channel.activity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.demo.panda_channel.R;
+import com.example.demo.panda_channel.activity.report.ReportActivity;
 import com.example.demo.panda_channel.adapter.histroy.HistroyListViewAdapter;
 import com.example.demo.panda_channel.base.BaseActivity;
 import com.example.demo.panda_channel.db.histroy.DaoMaster;
@@ -153,10 +155,10 @@ public class HistroyActivity extends BaseActivity implements HistroyListViewAdap
     @Override
     public void show(View v,MyHistroy myHistroy, int postion) {
         if(historyEdit.getText().equals("编辑")) {
-//            Intent intent = new Intent(HistroyActivity.this, ReportActivity.class);
-//            intent.putExtra("url", myHistroy.getMoviepath());
-//            intent.putExtra("img", myHistroy.getImg());
-//            HistroyActivity.this.startActivity(intent);
+            Intent intent = new Intent(HistroyActivity.this, ReportActivity.class);
+            intent.putExtra("url", myHistroy.getMoviepath());
+            intent.putExtra("img", myHistroy.getImg());
+            HistroyActivity.this.startActivity(intent);
         }
         else {
             if (list.get(postion).isFlag() == false) {

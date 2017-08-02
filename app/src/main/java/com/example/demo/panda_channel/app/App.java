@@ -3,6 +3,7 @@ package com.example.demo.panda_channel.app;
 import android.app.Application;
 
 import com.example.demo.panda_channel.base.BaseActivity;
+import com.example.demo.panda_channel.utils.CrashHandler;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.socialize.PlatformConfig;
@@ -23,6 +24,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashHandler.getInstance().init(this);//初始化全局异常管理
         UMShareAPI.get(this);
         PushAgent mPushAgent = PushAgent.getInstance(this);
 //注册推送服务，每次调用register方法都会回调该接口
@@ -40,7 +42,4 @@ public class App extends Application {
         });
 
     }
-
-
-
 }

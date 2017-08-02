@@ -4,6 +4,7 @@ package com.example.demo.panda_channel.config;
  * Created by 闫雨婷 on 2017/8/1.
  */
 
+//存取数据的key值
 public class Keys {
     //webviewurl
     public static final String  WEBVIEW= "url";

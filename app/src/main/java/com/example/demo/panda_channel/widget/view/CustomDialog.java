@@ -9,6 +9,7 @@ import com.example.demo.panda_channel.R;
  * Created by xingge on 2017/7/26.
  */
 
+//显示进度条
 public class CustomDialog {
     private static CustomDialog customDialog;
 

@@ -21,26 +21,6 @@ import java.util.List;
 
 //权限管理
 public class PermissionUtils extends Activity{
-//    private final Context mContext;
-//
-//    public PermissionUtils(Context context) {
-//        mContext = context.getApplicationContext();
-//    }
-//
-//      public boolean lacksPermissions(String... permissions){
-//          for (String permission : permissions){
-//          if (lacksPermission(permission)) {
-//              return true;
-//            }
-//          }
-//          return false;
-//      }
-//
-//    private boolean lacksPermission(String permission) {
-//        return ContextCompat.checkSelfPermission(mContext, permission) == PackageManager.PERMISSION_DENIED;
-//    }
-
-
     /**
      * 需要进行检测的权限数组
      */

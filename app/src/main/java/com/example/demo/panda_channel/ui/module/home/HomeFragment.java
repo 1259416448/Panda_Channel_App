@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.activity.WebViewActivity;
+import com.example.demo.panda_channel.activity.report.ReportActivity;
 import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.config.Urls;
@@ -70,22 +71,62 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
         adapter.setOnClickListener(new HomeAdapter.setOnClickListener() {
 
-
             @Override
-            public void setViwpagerListener(int pos, List<HomeData.DataBean.BigImgBean> bigImg) {
+            public void setViewpagerListener(int position,List<HomeData.DataBean.BigImgBean> bigImg) {
 
+                if (bigImg.get(position).getOrder().equals("1")) {
+                    Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                    intent.putExtra("url", bigImg.get(position).getUrl());
+                    intent.putExtra("title", bigImg.get(position).getTitle());
+                    getActivity().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), ReportActivity.class);
+                    intent.putExtra("url", Urls.VIDEOURL + "?pid=" + bigImg.get(position).getPid());
+                    intent.putExtra("img", bigImg.get(position).getImage());
+                    getActivity().startActivity(intent);
+                    List<MyHistroy> list = myHistroyDao.queryBuilder().build().list();
+                    if (list.size() == 0) {
+                        MyHistroy dataBean = new MyHistroy();
+                        dataBean.setTitle(bigImg.get(position).getTitle());
+                        dataBean.setDate("");
+                        dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + bigImg.get(position).getPid());
+                        dataBean.setImg(bigImg.get(position).getImage());
+                        myHistroyDao.insert(dataBean);
+                    } else {
+                        for (int i = 0; i < list.size(); i++) {
+                            if (bigImg.get(position).getTitle().equals(list.get(i).getTitle())) {
+                                list.set(0, list.get(i));
+                                flag = true;
+                                return;
+                            }
+                        }
+                        if (flag == true) {
+                            myHistroyDao.deleteAll();
+                            for (int i = 0; i < list.size(); i++) {
+                                myHistroyDao.insert(list.get(i));
+                            }
+                            flag = false;
+                        } else {
+                            MyHistroy dataBean = new MyHistroy();
+                            dataBean.setTitle(bigImg.get(position).getTitle());
+                            dataBean.setDate("");
+                            dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + bigImg.get(position).getPid());
+                            dataBean.setImg(bigImg.get(position).getImage());
+                            myHistroyDao.insert(dataBean);
+                        }
+                    }
+                }
             }
 
             @Override
             public void setWonderfulListener(HomeData.DataBean.AreaBean.ListscrollBean wonderbean) {
-                ToastManager.show("这是精彩推荐");
 
-//                Intent intent = new Intent(getActivity(), ReportActivity.class);
-//                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + wonderbean.getPid());
-//                intent.putExtra("img", wonderbean.getImage());
-//                getActivity().startActivity(intent);
+                Intent intent = new Intent(getActivity(), ReportActivity.class);
+                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + wonderbean.getPid());
+                intent.putExtra("img", wonderbean.getImage());
+                getActivity().startActivity(intent);
+
                 List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
-
                 if(histroylist.size()==0){
                     MyHistroy dataBean = new MyHistroy();
                     dataBean.setTitle(wonderbean.getTitle());
@@ -121,10 +162,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             @Override
             public void setPandaeyeVideoListener(HomePandaEyeBean.ListBean pandaeyebean) {
 
-//                Intent intent = new Intent(getActivity(), ReportActivity.class);
-//                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
-//                intent.putExtra("img", pandaeyebean.getImage());
-//                getActivity().startActivity(intent);
+                Intent intent = new Intent(getActivity(), ReportActivity.class);
+                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                intent.putExtra("img", pandaeyebean.getImage());
+                getActivity().startActivity(intent);
 
                 List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
                 if(histroylist.size()==0){
@@ -161,6 +202,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
             @Override
             public void setPandaeyeoneListener(HomeData.DataBean.PandaeyeBean.ItemsBean pandaeyebean) {
+
+                Intent intent = new Intent(getActivity(), ReportActivity.class);
+                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                intent.putExtra("img", "");
+                startActivity(intent);
+
                 List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
                 if(histroylist.size()==0){
                     MyHistroy dataBean = new MyHistroy();
@@ -196,6 +243,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
             @Override
             public void setPandaeyetwoListener(HomeData.DataBean.PandaeyeBean.ItemsBean pandaeyebean) {
+
+                Intent intent = new Intent(getActivity(), ReportActivity.class);
+                intent.putExtra("url", Urls.VIDEOURL + "?pid=" + pandaeyebean.getPid());
+                intent.putExtra("img", "");
+                startActivity(intent);
+
                 List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
                 if(histroylist.size()==0){
                     MyHistroy dataBean = new MyHistroy();
@@ -254,6 +307,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
             @Override
             public void setCctvliveListener(CCTVBean.ListBean cctvbean) {
+
+                Intent intent=new Intent(getContext(),ReportActivity.class);
+                intent.putExtra("url",Urls.VIDEOURL+"?pid="+cctvbean.getPid());
+                intent.putExtra("img",cctvbean.getImage());
+                startActivity(intent);
+
                 List<MyHistroy> histroylist = myHistroyDao.queryBuilder().build().list();
                 if (histroylist.size() == 0) {
                     MyHistroy dataBean = new MyHistroy();
@@ -285,6 +344,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
             @Override
             public void setLightChinaListener(LightChinaBean.ListBean lightbean) {
+
+                Intent intent=new Intent(getContext(),ReportActivity.class);
+                intent.putExtra("url",Urls.VIDEOURL+"?pid="+lightbean.getPid());
+                intent.putExtra("img",lightbean.getImage());
+                startActivity(intent);
+
                 List<MyHistroy> list = myHistroyDao.queryBuilder().build().list();
                 if(list.size()==0){
                     MyHistroy histroy=new MyHistroy();

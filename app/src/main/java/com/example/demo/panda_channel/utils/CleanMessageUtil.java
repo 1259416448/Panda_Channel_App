@@ -11,6 +11,7 @@ import java.math.BigDecimal;
  * Created by Administrator on 2017/7/31 0031.
  */
 
+//清除缓存--设置
 public class CleanMessageUtil {
 
     /**

@@ -55,13 +55,12 @@ public class HighLightFragment extends BaseFragment {
     @Override
     protected void init(View view) {
 
-//        for(int i=0;i<=5;i++){
-//            MyCollection collection=new MyCollection();
-//            collection.setDate("2017/8/1");
-//            collection.setTitle("标题");
-//            list.add(collection);
-//
-//        }
+        for(int i=0;i<=5;i++){
+            MyCollection collection=new MyCollection();
+            collection.setDate("2017/8/1");
+            collection.setTitle("标题");
+            list.add(collection);
+        }
         adapter=new HighLightListViewAdapter(list,getContext());
         highlightListview.setAdapter(adapter);
         createTable();
@@ -150,7 +149,7 @@ public class HighLightFragment extends BaseFragment {
                 if (textView.getText().equals("完成")) {
                     for (int i = list.size() - 1; i >= 0; i--) {
                         if (list.get(i).isFlag()) {
-//                            myCollectionDao.delete(list.get(i));
+                            myCollectionDao.delete(list.get(i));
                             list.remove(list.get(i));
                         }
                     }

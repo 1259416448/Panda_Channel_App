@@ -28,11 +28,9 @@
         android:layout_centerHorizontal="true"/>
     <TextView
         android:layout_marginTop="50dp"
-        android:gravity="bottom"
         android:id="@+id/panda_eye_item_data"
         android:text="2017/7/13"
         android:layout_above="@id/panda_eye_item_view"
-        android:layout_below="@id/panda_eye_item_title"
         android:layout_toRightOf="@id/panda_eye_item_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

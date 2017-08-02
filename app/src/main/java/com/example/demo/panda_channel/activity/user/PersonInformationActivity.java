@@ -62,6 +62,7 @@ public class PersonInformationActivity extends BaseActivity implements View.OnCl
     protected void init() {
         Intent intent = getIntent();
         String stringExtra = intent.getStringExtra("textView");
+
         tvNickname.setText(stringExtra);
     }
     @OnClick({R.id.person_information_image, R.id.img_touxiang, R.id.tv_nickname, R.id.bt_quit_login})

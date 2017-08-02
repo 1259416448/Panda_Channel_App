@@ -3,16 +3,23 @@ package com.example.demo.panda_channel.activity.report;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.view.GestureDetector;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.base.BaseActivity;
 import com.example.demo.panda_channel.config.Keys;
+import com.example.demo.panda_channel.db.collection.DaoMaster;
+import com.example.demo.panda_channel.db.collection.DaoSession;
+import com.example.demo.panda_channel.db.collection.MyCollection;
+import com.example.demo.panda_channel.db.collection.MyCollectionDao;
 import com.example.demo.panda_channel.model.entity.ReportVideoPlayBean;
 import com.example.demo.panda_channel.net.HttpFactroy;
 import com.umeng.socialize.ShareAction;
@@ -22,6 +29,8 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMVideo;
 
+import java.util.List;
+
 import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
@@ -29,16 +38,17 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 //555
 
 //22
-public class ReportActivity extends BaseActivity implements ReportContract.View{
+public class ReportActivity extends BaseActivity implements ReportContract.View {
     private ReportContract.Presenter presenter;
     @BindView(R.id.activity_report)
     RelativeLayout activityReport;
     private int k;
-    private boolean ym=false;
+    private boolean flag = false;
     //手势
     private GestureDetector gestureDetector;
     @BindView(R.id.jc_video)
     JCVideoPlayerStandard videoplayer;
+
     @Override
     public void onBackPressed() {
         if (videoplayer.backPress()) {
@@ -58,8 +68,10 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
         new ReportPresenter(this);
         return R.layout.activity_report;
     }
+
     private String img;
     private String url;
+
     @Override
     protected void init() {
         //screenOrientation
@@ -68,6 +80,7 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
         url = intent.getStringExtra(Keys.VIDEOURL);
         img = intent.getStringExtra(Keys.VIDEOIMG);
         presenter.setVideoData(url);
+        createTable();
     }
 
     @Override
@@ -86,10 +99,10 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
     @Override
     public void setSuccess(final ReportVideoPlayBean bean) {
         videoplayer.setUp(bean.getVideo().getChapters().get(0).getUrl(),
-                JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,bean.getTitle());
+                JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, bean.getTitle());
         videoplayer.onAutoCompletion();
         videoplayer.startVideo();
-        HttpFactroy.create().loadImage(img,videoplayer.thumbImageView);
+        HttpFactroy.create().loadImage(img, videoplayer.thumbImageView);
         videoplayer.setMonitor(new JCVideoPlayerStandard.imgClickon() {
             @Override
             public void Monitor(View view) {
@@ -126,7 +139,31 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
 
             @Override
             public void CollectionMonitor(CompoundButton compoundButton, boolean b) {
+                List<MyCollection> list = dao.queryBuilder().build().list();
+                if (list.size() == 0) {
+                    MyCollection collection = new MyCollection();
+                    collection.setTitle(bean.getTitle());
+                    collection.setDate(bean.getF_pgmtime());
+                    collection.setMoviepath(url);
+                    dao.insert(collection);
+                    Toast.makeText(ReportActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    for (int i=0;i<list.size();i++){
+                        if(list.get(i).getTitle().equals(bean.getTitle())) {
+                            flag=true;
+                        }
 
+                    }
+                    if(flag==true) {
+                        flag=false;
+                    }else {
+                        MyCollection collection = new MyCollection();
+                        collection.setTitle(bean.getTitle());
+                        collection.setDate(bean.getF_pgmtime());
+                        collection.setMoviepath(url);
+                        dao.insert(collection);
+                    }
+                }
             }
 
             @Override
@@ -136,12 +173,24 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
 
             @Override
             public void setgq() {
+                videoplayer.setUp(bean.getVideo().getChapters().get(0).getUrl()
+                        , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, bean.getTitle());
+                videoplayer.onAutoCompletion();
 
+                Glide.with(ReportActivity.this)
+                        .load(bean.getVideo().getChapters().get(0).getImage())
+                        .into(videoplayer.thumbImageView);
             }
 
             @Override
             public void setbq() {
+                videoplayer.setUp(bean.getVideo().getChapters4().get(0).getUrl()
+                        , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, bean.getTitle());
+                videoplayer.onAutoCompletion();
 
+                Glide.with(ReportActivity.this)
+                        .load(bean.getVideo().getChapters().get(0).getImage())
+                        .into(videoplayer.thumbImageView);
             }
         });
     }
@@ -153,7 +202,7 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
 
     @Override
     protected void onResume() {
-        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         super.onResume();
@@ -162,7 +211,7 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
 
     @Override
     public void setPresenter(ReportContract.Presenter presenter) {
-        this.presenter=presenter;
+        this.presenter = presenter;
     }
 
     @Override
@@ -173,6 +222,16 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
     @Override
     public void dismissProgress() {
 
+    }
+
+    private MyCollectionDao dao;
+
+    public void createTable() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "collection.db", null);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        DaoSession daoSession = daoMaster.newSession();
+        dao = daoSession.getMyCollectionDao();
     }
 }
 

@@ -41,6 +41,7 @@ public class ModuleFragment extends BaseFragment implements ModuleFragmentContra
 
     @Override
     protected void init(View view) {
+
         presenter.start();
         presenter.UrlNetwork(Urls.ORIGINALNEWS + "?vsid=" + id + st);
     }

@@ -43,11 +43,10 @@
         android:background="@drawable/jc_click_back_tiny_selector"
         android:visibility="visible" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/jc_title_bg"
         android:gravity="center_vertical"
         >
 
@@ -60,9 +59,10 @@
             android:src="@drawable/jc_click_back_selector" />
 
         <TextView
+            android:gravity="center"
             android:id="@+id/title"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:paddingLeft="10dp"
             android:layout_marginLeft="50dp"
             android:ellipsize="end"
@@ -70,26 +70,35 @@
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
-        <CheckBox
-            android:id="@+id/Collection"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:button="@null"
-            android:background="@drawable/jc"
-            />
-        <ImageView
-            android:id="@+id/shareit"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:paddingLeft="5dp"
-            android:src="@drawable/share" />
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:paddingLeft="5dp"
-            android:id="@+id/Watchthelist"
-            android:src="@drawable/play_fullscree_menu_true" />
-    </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <CheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/Collection"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:button="@null"
+                android:background="@drawable/jc"
+                />
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:id="@+id/shareit"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:paddingLeft="5dp"
+                android:src="@drawable/share" />
+            <ImageView
+                android:layout_marginRight="20dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:paddingLeft="5dp"
+                android:id="@+id/Watchthelist"
+                android:src="@drawable/play_fullscree_menu_true" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/loading"

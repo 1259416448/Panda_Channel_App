@@ -1,6 +1,7 @@
 package com.example.demo.panda_channel.ui.module.pandaeye;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,9 @@ import com.example.demo.panda_channel.activity.report.ReportActivity;
 import com.example.demo.panda_channel.app.App;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.config.Urls;
+import com.example.demo.panda_channel.db.histroy.DaoMaster;
+import com.example.demo.panda_channel.db.histroy.DaoSession;
+import com.example.demo.panda_channel.db.histroy.MyHistroyDao;
 import com.example.demo.panda_channel.model.entity.PandaEyesChildDataBean;
 import com.example.demo.panda_channel.model.entity.PandaEyesDataBean;
 import com.example.demo.panda_channel.ui.module.pandaeye.adapter.PandaEyeXrecyclerAdapter;
@@ -42,9 +46,10 @@ public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.V
     private ArrayList<PandaEyesChildDataBean.ListBean> pandachilddatalist=new ArrayList<>();
     @Override
     protected void init(View view) {
+        createTable();
         presenter.start();
     }
-
+    private boolean flag=false;
     @Override
     protected void loadData() {
         pandaEyeXrecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -69,10 +74,37 @@ public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.V
         adapter.setOnCilkListens(new PandaEyeXrecyclerAdapter.setOnCilkListen() {
             @Override
             public void OnCilkListen(PandaEyesChildDataBean.ListBean bean, int postion) {
+                /*List<MyHistroy> histroylist = dao.queryBuilder().build().list();
+                if (histroylist.size() == 0) {
+                    MyHistroy dataBean = new MyHistroy();
+                    dataBean.setTitle(bean.getTitle());
+                    dataBean.setDate("");
+                    dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + bean.getGuid());
+                    dataBean.setImg(bean.getPicurl());
+                    dao.insert(dataBean);
+                } else {
+                    for (int i = 0; i < histroylist.size(); i++) {
+                        if (bean.getTitle().equals(histroylist.get(i).getTitle())) {
+                            flag = true;
+                            return;
+                        }
+                    }
+                    if (flag == true) {
+                        flag = false;
+                    } else {
+                        MyHistroy dataBean = new MyHistroy();
+                        dataBean.setTitle(bean.getTitle());
+                        dataBean.setDate("");
+                        dataBean.setMoviepath(Urls.VIDEOURL + "?pid=" + bean.getGuid());
+                        dataBean.setImg(bean.getPicurl());
+                        dao.insert(dataBean);
+                    }
+                }*/
                 Intent intent =new Intent(getActivity(), ReportActivity.class);
                 intent.putExtra("url", Urls.VIDEOURL+"?pid="+bean.getGuid());
                 intent.putExtra("img",bean.getPicurl());
                 startActivity(intent);
+
             }
         });
     }
@@ -120,5 +152,13 @@ public class PandaEyeFragment extends BaseFragment implements PandaEyeContract.V
         PandaEyesChildDataBean bean = (PandaEyesChildDataBean) aCache.getAsObject("PandaEyesChildDataBean");
         pandachilddatalist.addAll(bean.getList());
         adapter.notifyDataSetChanged();
+    }
+    private MyHistroyDao dao;
+    public void createTable() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getActivity(), "histroy.db", null);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        DaoSession daoSession = daoMaster.newSession();
+        dao = daoSession.getMyHistroyDao();
     }
 }

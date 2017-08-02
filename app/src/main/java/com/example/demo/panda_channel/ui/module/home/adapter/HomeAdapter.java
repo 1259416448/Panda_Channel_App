@@ -22,6 +22,7 @@ import com.example.demo.panda_channel.ui.module.home.MyLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +31,42 @@ import java.util.List;
  * Created by 闫雨婷 on 2017/7/28.
  */
 //
-public class HomeAdapter extends RecyclerView.Adapter{
+public class HomeAdapter extends RecyclerView.Adapter {
+
+    public interface setOnClickListener {
+        void setViwpagerListener(int pos, List<HomeData.DataBean.BigImgBean> bigImg);
+
+        void setWonderfulListener(HomeData.DataBean.AreaBean.ListscrollBean wonderbean);
+
+        void setPandaeyeVideoListener(HomePandaEyeBean.ListBean pandaeyebean);
+
+        void setPandaeyeoneListener(HomeData.DataBean.PandaeyeBean.ItemsBean pandaeyebean);
+
+        void setPandaeyetwoListener(HomeData.DataBean.PandaeyeBean.ItemsBean pandaeyebean);
+
+        void setPandaliveListener(HomeData.DataBean.PandaliveBean.ListBean pandabean);
+
+        void setPangtwallliveListener(HomeData.DataBean.WallliveBean.ListBeanX wallbean);
+
+        void setChinaliveListener(HomeData.DataBean.ChinaliveBean.ListBeanXX bean);
+
+        void setInteractliveListener(HomeData.DataBean.InteractiveBean.InteractiveoneBean interbean);
+
+        void setCctvliveListener(CCTVBean.ListBean cctvbean);
+
+        void setLightChinaListener(LightChinaBean.ListBean lightbean);
+    }
+
+    private setOnClickListener OnClickListener;
+
+    public void setOnClickListener(setOnClickListener OnClickListener) {
+        this.OnClickListener = OnClickListener;
+    }
 
     private ArrayList<Object> list;
-    private ArrayList<HomePandaEyeBean.ListBean> lists=new ArrayList<>();
-    private ArrayList<CCTVBean.ListBean> listBeen=new ArrayList<>();
-    private ArrayList<LightChinaBean.ListBean> lightChina=new ArrayList<>();
+    private ArrayList<HomePandaEyeBean.ListBean> lists = new ArrayList<>();
+    private ArrayList<CCTVBean.ListBean> listBeen = new ArrayList<>();
+    private ArrayList<LightChinaBean.ListBean> lightChina = new ArrayList<>();
 
     private Context context;
     public static final int ITEMCOUNT = 9;//9种不同类型的item
@@ -56,60 +87,62 @@ public class HomeAdapter extends RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-       switch (viewType){
-           case BIGIMG:
-               View bigimg= LayoutInflater.from(context).inflate(R.layout.home_bigimg,null);
-               return new BigImgHolder(bigimg);
-           case AREA:
-               View area=LayoutInflater.from(context).inflate(R.layout.home_area,null);
-               return new AreaHolder(area);
-           case PANDAEYE:
-               View pandaEye=LayoutInflater.from(context).inflate(R.layout.home_pandaeye,null);
-               return new PandaEyeHolder(pandaEye);
-           case PANDALIVE:
-               View pandaLive=LayoutInflater.from(context).inflate(R.layout.home_pandalive,null);
-               return new PandaLiveHolder(pandaLive);
-           case WALLLIVE:
-               View wallLive=LayoutInflater.from(context).inflate(R.layout.home_pandalive,null);
-               return new PandaLiveHolder(wallLive);
-           case CHINALIVE:
-               View chinaLive=LayoutInflater.from(context).inflate(R.layout.home_pandalive,null);
-               return new PandaLiveHolder(chinaLive);
-           case INTERACTIVE:
-               View interActive=LayoutInflater.from(context).inflate(R.layout.home_interactive,null);
-               return new InterActiveHolder(interActive);
-           case CCTV:
-               View cctv=LayoutInflater.from(context).inflate(R.layout.home_cctv,null);
-               return new CctvHolder(cctv);
-           case LIST:
-               View list=LayoutInflater.from(context).inflate(R.layout.home_lightchina,null);
-               return new ListHolder(list);
-       }
+        switch (viewType) {
+            case BIGIMG:
+                View bigimg = LayoutInflater.from(context).inflate(R.layout.home_bigimg, null);
+                return new BigImgHolder(bigimg);
+            case AREA:
+                View area = LayoutInflater.from(context).inflate(R.layout.home_area, null);
+                return new AreaHolder(area);
+            case PANDAEYE:
+                View pandaEye = LayoutInflater.from(context).inflate(R.layout.home_pandaeye, null);
+                return new PandaEyeHolder(pandaEye);
+            case PANDALIVE:
+                View pandaLive = LayoutInflater.from(context).inflate(R.layout.home_pandalive, null);
+                return new PandaLiveHolder(pandaLive);
+            case WALLLIVE:
+                View wallLive = LayoutInflater.from(context).inflate(R.layout.home_pandalive, null);
+                return new PandaLiveHolder(wallLive);
+            case CHINALIVE:
+                View chinaLive = LayoutInflater.from(context).inflate(R.layout.home_pandalive, null);
+                return new PandaLiveHolder(chinaLive);
+            case INTERACTIVE:
+                View interActive = LayoutInflater.from(context).inflate(R.layout.home_interactive, null);
+                return new InterActiveHolder(interActive);
+            case CCTV:
+                View cctv = LayoutInflater.from(context).inflate(R.layout.home_cctv, null);
+                return new CctvHolder(cctv);
+            case LIST:
+                View list = LayoutInflater.from(context).inflate(R.layout.home_lightchina, null);
+                return new ListHolder(list);
+        }
 
         return null;
     }
 
-    class BigImgHolder extends RecyclerView.ViewHolder{
+    class BigImgHolder extends RecyclerView.ViewHolder {
 
         private Banner bigimgviewpager;
+
         public BigImgHolder(View itemView) {
             super(itemView);
-            bigimgviewpager= (Banner) itemView.findViewById(R.id.bigimg_viewpager);
+            bigimgviewpager = (Banner) itemView.findViewById(R.id.bigimg_viewpager);
         }
     }
 
-    class AreaHolder extends RecyclerView.ViewHolder{
+    class AreaHolder extends RecyclerView.ViewHolder {
 
         private ImageView areaIcon;
         private RecyclerView areaRecyclerView;
+
         public AreaHolder(View itemView) {
             super(itemView);
-            areaIcon= (ImageView) itemView.findViewById(R.id.areaIcon);
-            areaRecyclerView= (RecyclerView) itemView.findViewById(R.id.areaRecyclerView);
+            areaIcon = (ImageView) itemView.findViewById(R.id.areaIcon);
+            areaRecyclerView = (RecyclerView) itemView.findViewById(R.id.areaRecyclerView);
         }
     }
 
-    class PandaEyeHolder extends RecyclerView.ViewHolder{
+    class PandaEyeHolder extends RecyclerView.ViewHolder {
 
         private ImageView pandaeyeimg;
         private TextView onecontent;
@@ -120,114 +153,118 @@ public class HomeAdapter extends RecyclerView.Adapter{
 
         public PandaEyeHolder(View itemView) {
             super(itemView);
-            pandaeyeimg= (ImageView) itemView.findViewById(R.id.panda_eye_img);
-            onecontent= (TextView) itemView.findViewById(R.id.panda_eye_onecontent);
-            twocontent= (TextView) itemView.findViewById(R.id.panda_eye_twocontent);
-            onetx= (TextView) itemView.findViewById(R.id.panda_eye_onetx);
-            twotx= (TextView) itemView.findViewById(R.id.panda_eye_twotx);
-            videorecycler= (RecyclerView) itemView.findViewById(R.id.home_panda_eye_videorecycler);
+            pandaeyeimg = (ImageView) itemView.findViewById(R.id.panda_eye_img);
+            onecontent = (TextView) itemView.findViewById(R.id.panda_eye_onecontent);
+            twocontent = (TextView) itemView.findViewById(R.id.panda_eye_twocontent);
+            onetx = (TextView) itemView.findViewById(R.id.panda_eye_onetx);
+            twotx = (TextView) itemView.findViewById(R.id.panda_eye_twotx);
+            videorecycler = (RecyclerView) itemView.findViewById(R.id.home_panda_eye_videorecycler);
 
         }
     }
 
-    class PandaLiveHolder extends RecyclerView.ViewHolder{
+    class PandaLiveHolder extends RecyclerView.ViewHolder {
 
         private TextView hometitle;
         private RecyclerView pandaliverecycler;
+
         public PandaLiveHolder(View itemView) {
             super(itemView);
-            hometitle= (TextView) itemView.findViewById(R.id.home_title);
-            pandaliverecycler= (RecyclerView) itemView.findViewById(R.id.pandalive_recycler);
+            hometitle = (TextView) itemView.findViewById(R.id.home_title);
+            pandaliverecycler = (RecyclerView) itemView.findViewById(R.id.pandalive_recycler);
         }
     }
 
-    class InterActiveHolder extends RecyclerView.ViewHolder{
+    class InterActiveHolder extends RecyclerView.ViewHolder {
 
         private TextView home_interactive_title;
         private ImageView home_interactive_img;
+
         public InterActiveHolder(View itemView) {
             super(itemView);
-            home_interactive_img=(ImageView) itemView.findViewById(R.id.home_interactive_img);
-            home_interactive_title=(TextView) itemView.findViewById(R.id.home_interactive_title);
+            home_interactive_img = (ImageView) itemView.findViewById(R.id.home_interactive_img);
+            home_interactive_title = (TextView) itemView.findViewById(R.id.home_interactive_title);
         }
     }
 
-    class CctvHolder extends RecyclerView.ViewHolder{
+    class CctvHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView recyclerview;
 
         public CctvHolder(View itemView) {
             super(itemView);
-            recyclerview= (RecyclerView) itemView.findViewById(R.id.home_cctv_recyclerview);
+            recyclerview = (RecyclerView) itemView.findViewById(R.id.home_cctv_recyclerview);
         }
     }
 
-    class ListHolder extends RecyclerView.ViewHolder{
+    class ListHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView recyclerView;
         private TextView textView;
+
         public ListHolder(View itemView) {
             super(itemView);
-            recyclerView= (RecyclerView) itemView.findViewById(R.id.home_lightchina_recyclerview);
-            textView= (TextView) itemView.findViewById(R.id.home_lightchina_name);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.home_lightchina_recyclerview);
+            textView = (TextView) itemView.findViewById(R.id.home_lightchina_name);
         }
     }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (position){
+        switch (position) {
             case BIGIMG:
-                BigImgHolder holder1= (BigImgHolder) holder;
-                List<HomeData.DataBean.BigImgBean> bigImg= (List<HomeData.DataBean.BigImgBean>) list.get(position);
-                loadBigImg(holder1,bigImg);
+                BigImgHolder holder1 = (BigImgHolder) holder;
+                List<HomeData.DataBean.BigImgBean> bigImg = (List<HomeData.DataBean.BigImgBean>) list.get(position);
+                loadBigImg(holder1, bigImg);
                 break;
             case AREA:
-                AreaHolder holder2= (AreaHolder) holder;
+                AreaHolder holder2 = (AreaHolder) holder;
                 HomeData.DataBean.AreaBean areaBean = (HomeData.DataBean.AreaBean) list.get(position);
-                loadArea(holder2,areaBean);
+                loadArea(holder2, areaBean);
                 break;
             case PANDAEYE:
-                PandaEyeHolder holder3= (PandaEyeHolder) holder;
-                HomeData.DataBean.PandaeyeBean pandaeyeBean= (HomeData.DataBean.PandaeyeBean) list.get(position);
-                loadPandaEye(holder3,pandaeyeBean);
+                PandaEyeHolder holder3 = (PandaEyeHolder) holder;
+                HomeData.DataBean.PandaeyeBean pandaeyeBean = (HomeData.DataBean.PandaeyeBean) list.get(position);
+                loadPandaEye(holder3, pandaeyeBean);
                 break;
             case PANDALIVE:
-                PandaLiveHolder holder4= (PandaLiveHolder) holder;
-                HomeData.DataBean.PandaliveBean pandaliveBean= (HomeData.DataBean.PandaliveBean) list.get(position);
-                loadPandaLive(holder4,pandaliveBean);
+                PandaLiveHolder holder4 = (PandaLiveHolder) holder;
+                HomeData.DataBean.PandaliveBean pandaliveBean = (HomeData.DataBean.PandaliveBean) list.get(position);
+                loadPandaLive(holder4, pandaliveBean);
                 break;
             case WALLLIVE:
-                PandaLiveHolder holder5= (PandaLiveHolder) holder;
-                HomeData.DataBean.WallliveBean wallliveBean= (HomeData.DataBean.WallliveBean) list.get(position);
-                loadWallLive(holder5,wallliveBean);
+                PandaLiveHolder holder5 = (PandaLiveHolder) holder;
+                HomeData.DataBean.WallliveBean wallliveBean = (HomeData.DataBean.WallliveBean) list.get(position);
+                loadWallLive(holder5, wallliveBean);
                 break;
             case CHINALIVE:
-                PandaLiveHolder holder6= (PandaLiveHolder) holder;
-                HomeData.DataBean.ChinaliveBean chinaliveBean= (HomeData.DataBean.ChinaliveBean) list.get(position);
-                loadChinaLive(holder6,chinaliveBean);
+                PandaLiveHolder holder6 = (PandaLiveHolder) holder;
+                HomeData.DataBean.ChinaliveBean chinaliveBean = (HomeData.DataBean.ChinaliveBean) list.get(position);
+                loadChinaLive(holder6, chinaliveBean);
                 break;
             case INTERACTIVE:
-                InterActiveHolder holder7= (InterActiveHolder) holder;
-                HomeData.DataBean.InteractiveBean interactiveBean= (HomeData.DataBean.InteractiveBean) list.get(position);
-                loadInterActive(holder7,interactiveBean);
+                InterActiveHolder holder7 = (InterActiveHolder) holder;
+                HomeData.DataBean.InteractiveBean interactiveBean = (HomeData.DataBean.InteractiveBean) list.get(position);
+                loadInterActive(holder7, interactiveBean);
                 break;
             case CCTV:
-                CctvHolder holder8= (CctvHolder) holder;
-                HomeData.DataBean.CctvBean cctvBean= (HomeData.DataBean.CctvBean) list.get(position);
-                loadCctv(holder8,cctvBean);
+                CctvHolder holder8 = (CctvHolder) holder;
+                HomeData.DataBean.CctvBean cctvBean = (HomeData.DataBean.CctvBean) list.get(position);
+                loadCctv(holder8, cctvBean);
                 break;
             case LIST:
-                ListHolder holder9= (ListHolder) holder;
-                HomeData.DataBean.ListBeanXXX listBeanXXX= (HomeData.DataBean.ListBeanXXX) list.get(position);
-                loadLightChina(holder9,listBeanXXX);
+                ListHolder holder9 = (ListHolder) holder;
+                HomeData.DataBean.ListBeanXXX listBeanXXX = (HomeData.DataBean.ListBeanXXX) list.get(position);
+                loadLightChina(holder9, listBeanXXX);
                 break;
         }
     }
 
-    private void loadBigImg(BigImgHolder holder, List<HomeData.DataBean.BigImgBean> bigImgs){
+    private void loadBigImg(BigImgHolder holder, final List<HomeData.DataBean.BigImgBean> bigImgs) {
         Banner bigimgviewpager = holder.bigimgviewpager;
         List<String> imgs = new ArrayList<>();
-        List<String> title=new ArrayList<>();
-        for (HomeData.DataBean.BigImgBean imgBean : bigImgs){
+        List<String> title = new ArrayList<>();
+        for (HomeData.DataBean.BigImgBean imgBean : bigImgs) {
             imgs.add(imgBean.getImage());
             title.add(imgBean.getTitle());
 
@@ -248,25 +285,40 @@ public class HomeAdapter extends RecyclerView.Adapter{
             bigimgviewpager.setIndicatorGravity(BannerConfig.CENTER);
             //banner设置方法全部调用完毕时最后调用
             bigimgviewpager.start();
+            bigimgviewpager.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    OnClickListener.setViwpagerListener(position, bigImgs);
+                }
+            });
+
         }
     }
 
-    private void loadArea(AreaHolder holder,HomeData.DataBean.AreaBean areaBean){
-        List<HomeData.DataBean.AreaBean.ListscrollBean> areas = areaBean.getListscroll();
+    private void loadArea(AreaHolder holder, HomeData.DataBean.AreaBean areaBean) {
+        final List<HomeData.DataBean.AreaBean.ListscrollBean> areas = areaBean.getListscroll();
         ImageView areaIcon = holder.areaIcon;
-        HttpFactroy.create().loadImage(areaBean.getImage(),areaIcon);
+        HttpFactroy.create().loadImage(areaBean.getImage(), areaIcon);
         RecyclerView recyclerView = holder.areaRecyclerView;
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(new HomeAreaAdapter(context,areas));
+        HomeAreaAdapter areaAdapter = new HomeAreaAdapter(context, areas);
+        recyclerView.setAdapter(areaAdapter);
+
+        areaAdapter.setOnClickListener(new HomeAreaAdapter.setOnClickListener() {
+            @Override
+            public void setOnClickListener(View v, int position) {
+                OnClickListener.setWonderfulListener(areas.get(position));
+            }
+        });
     }
 
-    private void loadPandaEye(PandaEyeHolder holder,HomeData.DataBean.PandaeyeBean pandaeyeBean){
-        List<HomeData.DataBean.PandaeyeBean.ItemsBean> items = pandaeyeBean.getItems();
+    private void loadPandaEye(final PandaEyeHolder holder, HomeData.DataBean.PandaeyeBean pandaeyeBean) {
+        final List<HomeData.DataBean.PandaeyeBean.ItemsBean> items = pandaeyeBean.getItems();
         String pandaeyelist = pandaeyeBean.getPandaeyelist();
         ImageView pandaeyeimg = holder.pandaeyeimg;
-        HttpFactroy.create().loadImage(pandaeyeBean.getPandaeyelogo(),pandaeyeimg);
+        HttpFactroy.create().loadImage(pandaeyeBean.getPandaeyelogo(), pandaeyeimg);
         holder.onetx.setText(items.get(0).getBrief());
         holder.twotx.setText(items.get(1).getBrief());
         holder.onecontent.setText(items.get(0).getTitle());
@@ -275,15 +327,36 @@ public class HomeAdapter extends RecyclerView.Adapter{
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         videorecycler.setLayoutManager(manager);
-        final HomePandaEyeAdapter adapter=new HomePandaEyeAdapter(context,lists);
+        final HomePandaEyeAdapter adapter = new HomePandaEyeAdapter(context, lists);
         videorecycler.setAdapter(adapter);
+
+        holder.onecontent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickListener.setPandaeyeoneListener(items.get(0));
+            }
+        });
+        holder.twocontent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickListener.setPandaeyetwoListener(items.get(1));
+            }
+        });
+
         PandaChannelModel.iHttp.get(pandaeyelist, null, new MyNetWorkCallBack<HomePandaEyeBean>() {
             @Override
-            public void onSuccess(HomePandaEyeBean homePandaEyeBean) {
+            public void onSuccess(final HomePandaEyeBean homePandaEyeBean) {
                 List<HomePandaEyeBean.ListBean> list = homePandaEyeBean.getList();
                 lists.clear();
                 lists.addAll(list);
                 adapter.notifyDataSetChanged();
+
+                adapter.setOnClickListener(new HomePandaEyeAdapter.setOnClickListener() {
+                    @Override
+                    public void show(View view, int position) {
+                        OnClickListener.setPandaeyeVideoListener(lists.get(position));
+                    }
+                });
             }
 
             @Override
@@ -293,57 +366,95 @@ public class HomeAdapter extends RecyclerView.Adapter{
         });
     }
 
-    private void loadPandaLive(PandaLiveHolder holder,HomeData.DataBean.PandaliveBean pandaliveBean){
-        List<HomeData.DataBean.PandaliveBean.ListBean> list = pandaliveBean.getList();
+    private void loadPandaLive(PandaLiveHolder holder, HomeData.DataBean.PandaliveBean pandaliveBean) {
+        final List<HomeData.DataBean.PandaliveBean.ListBean> list = pandaliveBean.getList();
         RecyclerView recyclerView = holder.pandaliverecycler;
-        GridLayoutManager manager=new GridLayoutManager(context,3);
+        GridLayoutManager manager = new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(new HomePandaLiveAdapter(list,context));
+        HomePandaLiveAdapter adapter = new HomePandaLiveAdapter(list, context);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnClickListener(new HomePandaLiveAdapter.setOnClickListener() {
+            @Override
+            public void setOnClickListener(View v, int position) {
+                OnClickListener.setPandaliveListener(list.get(position));
+            }
+        });
     }
 
-    private void loadWallLive(PandaLiveHolder holder,HomeData.DataBean.WallliveBean wallliveBean){
-        List<HomeData.DataBean.WallliveBean.ListBeanX> list = wallliveBean.getList();
+    private void loadWallLive(PandaLiveHolder holder, HomeData.DataBean.WallliveBean wallliveBean) {
+        final List<HomeData.DataBean.WallliveBean.ListBeanX> list = wallliveBean.getList();
         RecyclerView pandaliverecycler = holder.pandaliverecycler;
         TextView hometitle = holder.hometitle;
         hometitle.setText("长城直播");
-        GridLayoutManager manager=new GridLayoutManager(context,3);
+        GridLayoutManager manager = new GridLayoutManager(context, 3);
         pandaliverecycler.setLayoutManager(manager);
-        pandaliverecycler.setAdapter(new HomeWallLiveAdapter(list,context));
+        HomeWallLiveAdapter adapter = new HomeWallLiveAdapter(list, context);
+        pandaliverecycler.setAdapter(adapter);
+
+        adapter.setOnClickListener(new HomePandaLiveAdapter.setOnClickListener() {
+            @Override
+            public void setOnClickListener(View v, int position) {
+                OnClickListener.setPangtwallliveListener(list.get(position));
+            }
+        });
     }
 
-    private void loadChinaLive(PandaLiveHolder holder,HomeData.DataBean.ChinaliveBean chinaliveBean){
-        List<HomeData.DataBean.ChinaliveBean.ListBeanXX> list = chinaliveBean.getList();
+    private void loadChinaLive(PandaLiveHolder holder, HomeData.DataBean.ChinaliveBean chinaliveBean) {
+        final List<HomeData.DataBean.ChinaliveBean.ListBeanXX> list = chinaliveBean.getList();
         TextView hometitle = holder.hometitle;
         RecyclerView pandaliverecycler = holder.pandaliverecycler;
         hometitle.setText("直播中国");
-        GridLayoutManager manager=new GridLayoutManager(context,3);
+        GridLayoutManager manager = new GridLayoutManager(context, 3);
         pandaliverecycler.setLayoutManager(manager);
-        pandaliverecycler.setAdapter(new HomeLiveChinaAdapter(list,context));
+        HomeLiveChinaAdapter adapter = new HomeLiveChinaAdapter(list, context);
+        pandaliverecycler.setAdapter(adapter);
+
+        adapter.setOnClickListener(new HomePandaLiveAdapter.setOnClickListener() {
+            @Override
+            public void setOnClickListener(View v, int position) {
+                OnClickListener.setChinaliveListener(list.get(position));
+            }
+        });
 
     }
 
-    private void loadInterActive(InterActiveHolder holder,HomeData.DataBean.InteractiveBean interactiveBean){
-        List<HomeData.DataBean.InteractiveBean.InteractiveoneBean> interactiveone = interactiveBean.getInteractiveone();
+    private void loadInterActive(InterActiveHolder holder, HomeData.DataBean.InteractiveBean interactiveBean) {
+        final List<HomeData.DataBean.InteractiveBean.InteractiveoneBean> interactiveone = interactiveBean.getInteractiveone();
         TextView home_interactive_title = holder.home_interactive_title;
         ImageView home_interactive_img = holder.home_interactive_img;
-        HttpFactroy.create().loadImage(interactiveone.get(0).getImage(),home_interactive_img);
+        HttpFactroy.create().loadImage(interactiveone.get(0).getImage(), home_interactive_img);
         home_interactive_title.setText(interactiveone.get(0).getTitle());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickListener.setInteractliveListener(interactiveone.get(0));
+            }
+        });
     }
 
-    private void loadCctv(CctvHolder holder,HomeData.DataBean.CctvBean cctvBean){
+    private void loadCctv(CctvHolder holder, HomeData.DataBean.CctvBean cctvBean) {
         RecyclerView recyclerview = holder.recyclerview;
         String listurl = cctvBean.getListurl();
-        GridLayoutManager manager=new GridLayoutManager(context,2);
+        GridLayoutManager manager = new GridLayoutManager(context, 2);
         recyclerview.setLayoutManager(manager);
-        final HomeCCTVAdapter adapter=new HomeCCTVAdapter(context,listBeen);
+        final HomeCCTVAdapter adapter = new HomeCCTVAdapter(context, listBeen);
         recyclerview.setAdapter(adapter);
         PandaChannelModel.iHttp.get(listurl, null, new MyNetWorkCallBack<CCTVBean>() {
             @Override
-            public void onSuccess(CCTVBean cctvBean) {
+            public void onSuccess(final CCTVBean cctvBean) {
                 List<CCTVBean.ListBean> list = cctvBean.getList();
                 listBeen.clear();
                 listBeen.addAll(list);
                 adapter.notifyDataSetChanged();
+
+                adapter.setOnClickListener(new HomePandaLiveAdapter.setOnClickListener() {
+                    @Override
+                    public void setOnClickListener(View v, int position) {
+                        OnClickListener.setCctvliveListener(listBeen.get(position));
+                    }
+                });
             }
 
             @Override
@@ -353,15 +464,15 @@ public class HomeAdapter extends RecyclerView.Adapter{
         });
     }
 
-    private void loadLightChina(ListHolder holder,HomeData.DataBean.ListBeanXXX listBeanXXX){
+    private void loadLightChina(ListHolder holder, final HomeData.DataBean.ListBeanXXX listBeanXXX) {
         String listUrl = listBeanXXX.getListUrl();
         TextView textView = holder.textView;
         RecyclerView recyclerView = holder.recyclerView;
         textView.setText(listBeanXXX.getTitle());
-        LinearLayoutManager manager=new LinearLayoutManager(context);
+        LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        final HomeListAdapter adapter=new HomeListAdapter(context,lightChina);
+        final HomeListAdapter adapter = new HomeListAdapter(context, lightChina);
         recyclerView.setAdapter(adapter);
         PandaChannelModel.iHttp.get(listUrl, null, new MyNetWorkCallBack<LightChinaBean>() {
             @Override
@@ -370,11 +481,17 @@ public class HomeAdapter extends RecyclerView.Adapter{
                 lightChina.clear();
                 lightChina.addAll(list);
                 adapter.notifyDataSetChanged();
+
+                adapter.setOnClickListener(new HomePandaLiveAdapter.setOnClickListener() {
+                    @Override
+                    public void setOnClickListener(View v, int position) {
+                        OnClickListener.setLightChinaListener(lightChina.get(position));
+                    }
+                });
             }
 
             @Override
             public void onError(String errorMsg) {
-
             }
         });
 
@@ -388,7 +505,7 @@ public class HomeAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemViewType(int position) {
         Object o = list.get(position);
-        if(position==0){
+        if (position == 0) {
             return BIGIMG;
         } else if (o instanceof HomeData.DataBean.AreaBean) {
             return AREA;

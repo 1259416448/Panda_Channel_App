@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.base.BaseActivity;
+import com.example.demo.panda_channel.config.Keys;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,10 +40,10 @@ public class WebViewActivity extends BaseActivity {
     protected void init() {
 
         settings = activityWebview.getSettings();
-        stringurl = getIntent().getStringExtra("url");
+        stringurl = getIntent().getStringExtra(Keys.WEBVIEW);
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
+        String title = intent.getStringExtra(Keys.TITLE);
         homeWebviewTitle.setText(title);
 
 

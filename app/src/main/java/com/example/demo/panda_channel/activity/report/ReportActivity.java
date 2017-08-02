@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.example.demo.panda_channel.R;
 import com.example.demo.panda_channel.base.BaseActivity;
+import com.example.demo.panda_channel.config.Keys;
 import com.example.demo.panda_channel.model.entity.ReportVideoPlayBean;
 import com.example.demo.panda_channel.net.HttpFactroy;
 import com.umeng.socialize.ShareAction;
@@ -64,8 +65,8 @@ public class ReportActivity extends BaseActivity implements ReportContract.View{
         //screenOrientation
 
         Intent intent = getIntent();
-        url = intent.getStringExtra("url");
-        img = intent.getStringExtra("img");
+        url = intent.getStringExtra(Keys.VIDEOURL);
+        img = intent.getStringExtra(Keys.VIDEOIMG);
         presenter.setVideoData(url);
     }
 

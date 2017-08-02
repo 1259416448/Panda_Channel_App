@@ -1,5 +1,6 @@
 package com.example.demo.panda_channel.fragment.collection;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.demo.panda_channel.R;
+import com.example.demo.panda_channel.activity.report.ReportActivity;
 import com.example.demo.panda_channel.base.BaseFragment;
 import com.example.demo.panda_channel.db.collection.DaoMaster;
 import com.example.demo.panda_channel.db.collection.DaoSession;
@@ -55,17 +57,20 @@ public class HighLightFragment extends BaseFragment {
 
 //        for(int i=0;i<=5;i++){
 //            MyCollection collection=new MyCollection();
-//            collection.setDate("2017/8/1"+i);
-//            collection.setTitle("标题"+i);
+//            collection.setDate("2017/8/1");
+//            collection.setTitle("标题");
 //            list.add(collection);
+//
 //        }
         adapter=new HighLightListViewAdapter(list,getContext());
         highlightListview.setAdapter(adapter);
+        createTable();
         query();
     }
 
     @Override
     protected void loadData() {
+
         highlightListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,10 +90,10 @@ public class HighLightFragment extends BaseFragment {
                     adapter.notifyDataSetChanged();
                 }else{
                     adapter.notifyDataSetChanged();
-//                    Intent intent = new Intent(getContext(), ReportActivity.class);
-//                    intent.putExtra("url", list.get(i).getMoviepath());
-//                    intent.putExtra("img", list.get(i).getImg());
-//                    startActivity(intent);
+                    Intent intent = new Intent(getContext(), ReportActivity.class);
+                    intent.putExtra("url", list.get(i).getMoviepath());
+                    intent.putExtra("img", list.get(i).getImg());
+                    startActivity(intent);
                 }
             }
         });
@@ -145,7 +150,7 @@ public class HighLightFragment extends BaseFragment {
                 if (textView.getText().equals("完成")) {
                     for (int i = list.size() - 1; i >= 0; i--) {
                         if (list.get(i).isFlag()) {
-                            delete(list.get(i));
+//                            myCollectionDao.delete(list.get(i));
                             list.remove(list.get(i));
                         }
                     }
@@ -161,12 +166,16 @@ public class HighLightFragment extends BaseFragment {
         }
     }
 
-    public void query() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getContext(), "tryrt.db", null);
+    private MyCollectionDao myCollectionDao;
+    public void createTable() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getContext(), "collection.db", null);
         SQLiteDatabase database = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(database);
         DaoSession daoSession = daoMaster.newSession();
-        MyCollectionDao myCollectionDao = daoSession.getMyCollectionDao();
+        myCollectionDao = daoSession.getMyCollectionDao();
+    }
+
+    public void query() {
         QueryBuilder<MyCollection> histroyQueryBuilder= myCollectionDao.queryBuilder();
         List<MyCollection> list = histroyQueryBuilder.list();
         list.clear();
@@ -177,16 +186,6 @@ public class HighLightFragment extends BaseFragment {
 
         }
         adapter.notifyDataSetChanged();
-        helper.close();
-    }
 
-    public void delete(MyCollection collection) {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getContext(), "tryrt.db", null);
-        SQLiteDatabase database = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(database);
-        DaoSession daoSession = daoMaster.newSession();
-        MyCollectionDao myCollectionDao = daoSession.getMyCollectionDao();
-        myCollectionDao.delete(collection);
-        helper.close();
     }
 }

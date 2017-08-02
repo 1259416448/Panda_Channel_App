@@ -13,8 +13,8 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/history_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/personal_back_img" />
             <TextView
@@ -39,14 +39,13 @@
     <ImageView
         android:visibility="gone"
         android:id="@+id/history_backgroud"
-        android:src="@mipmap/history_backgroud"
         android:layout_below="@id/history_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@mipmap/panda_backgroud"/>
     <RelativeLayout
         android:id="@+id/history_relative"
         android:layout_below="@id/history_toolbar"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout

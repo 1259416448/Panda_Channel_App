@@ -20,6 +20,15 @@ import java.util.List;
  */
 
 public class HomeLiveChinaAdapter extends RecyclerView.Adapter{
+
+    public interface setOnClickListener{
+        void setOnClickListener(View v,int position);
+    }
+    private HomePandaLiveAdapter.setOnClickListener onClickListener;
+    public void setOnClickListener(HomePandaLiveAdapter.setOnClickListener onClickListener){
+        this.onClickListener=onClickListener;
+    }
+
     private List<HomeData.DataBean.ChinaliveBean.ListBeanXX> list;
     private Context context;
 
@@ -48,10 +57,19 @@ public class HomeLiveChinaAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder holder1= (ViewHolder) holder;
         HttpFactroy.create().loadImage(list.get(position).getImage(),holder1.img);
         holder1.title.setText(list.get(position).getTitle());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onClickListener!=null){
+                    onClickListener.setOnClickListener(v,position);
+                }
+            }
+        });
     }
 
     @Override

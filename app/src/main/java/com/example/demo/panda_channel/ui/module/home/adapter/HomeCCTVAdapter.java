@@ -20,6 +20,13 @@ import java.util.ArrayList;
 
 public class HomeCCTVAdapter extends RecyclerView.Adapter{
 
+    public interface setOnClickListener{
+        void setOnClickListener(View v,int position);
+    }
+    private HomePandaLiveAdapter.setOnClickListener onClickListener;
+    public void setOnClickListener(HomePandaLiveAdapter.setOnClickListener onClickListener){
+        this.onClickListener=onClickListener;
+    }
     private Context context;
     private ArrayList<CCTVBean.ListBean> listBeen;
 
@@ -45,10 +52,19 @@ public class HomeCCTVAdapter extends RecyclerView.Adapter{
 }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder holder1= (ViewHolder) holder;
         HttpFactroy.create().loadImage(listBeen.get(position).getImage(),holder1.imageView);
         holder1.textView.setText(listBeen.get(position).getTitle());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onClickListener!=null){
+                    onClickListener.setOnClickListener(v,position);
+                }
+            }
+        });
     }
 
     @Override

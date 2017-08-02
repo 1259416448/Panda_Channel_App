@@ -20,6 +20,14 @@ import java.util.List;
 
 public class HomeAreaAdapter extends RecyclerView.Adapter{
 
+    public interface setOnClickListener{
+        void setOnClickListener(View v,int position);
+    }
+    private setOnClickListener onClickListener;
+    public void setOnClickListener(setOnClickListener onClickListener){
+        this.onClickListener=onClickListener;
+    }
+
     private Context context;
     private List<HomeData.DataBean.AreaBean.ListscrollBean> datas;
     private LayoutInflater inflater;
@@ -37,11 +45,20 @@ public class HomeAreaAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         Holder holder1 = (Holder) holder;
         HttpFactroy.create().loadImage(datas.get(position).getImage(),holder1.img);
         holder1.titleTv.setText(datas.get(position).getTitle());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onClickListener!=null){
+                    onClickListener.setOnClickListener(v,position);
+                }
+            }
+        });
     }
 
     @Override

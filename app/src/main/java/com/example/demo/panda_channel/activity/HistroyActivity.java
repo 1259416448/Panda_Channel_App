@@ -126,7 +126,7 @@ public class HistroyActivity extends BaseActivity implements HistroyListViewAdap
                 if (historyEdit.getText().equals("完成")) {
                     for (int i = list.size() - 1; i >= 0; i--) {
                         if (list.get(i).isFlag()) {
-//                            myHistroyDao.delete(list.get(i));
+                            myHistroyDao.delete(list.get(i));
                             list.remove(list.get(i));
                         }
                     }

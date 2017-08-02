@@ -173,10 +173,9 @@ public class HighLightFragment extends BaseFragment {
 
         for (int x = 0; x < collectionList.size(); x++) {
             MyCollection collection = collectionList.get(x);
-            list.add(collection);
+                list.add(0,collection);
 
         }
         adapter.notifyDataSetChanged();
-
     }
 }

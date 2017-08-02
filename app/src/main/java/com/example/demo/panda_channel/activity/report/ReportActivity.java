@@ -148,7 +148,7 @@ public class ReportActivity extends BaseActivity implements ReportContract.View 
                     dao.insert(collection);
                     Toast.makeText(ReportActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    for (int i=0;i<list.size();i++){
+                    for (int i=0;i<list.size();i++){//
                         if(list.get(i).getTitle().equals(bean.getTitle())) {
                             flag=true;
                         }

@@ -26,7 +26,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 /**
  * Created by 闫雨婷 on 2017/8/1.
  */
-
+//
 public class HighLightFragment extends BaseFragment {
 
     @BindView(R.id.highlight_listview)
